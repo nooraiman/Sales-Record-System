@@ -39,7 +39,7 @@ $page_title = "SRS | Login";
                     </span>
                     <input type="password" class="form-control" name="userpassword" placeholder="Password">
                 </div>
-                <input type="submit" class="btn btn-success submit-btn">
+                <input type="submit" class="btn btn-success submit-btn" value="Login">
             </form>
         </div>
         <footer>
