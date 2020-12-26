@@ -38,7 +38,6 @@ $page_title = "Logging out...";
             } else if (
                 result.dismiss === Swal.DismissReason.cancel
             ) {
-                alert("You will be redirected to the homepage.");
                 window.location = "index.php";
             }
             });

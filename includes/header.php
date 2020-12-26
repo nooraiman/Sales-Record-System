@@ -75,10 +75,10 @@ if(!isset($_SESSION['id'])) {
     </div>
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-navy elevation-4">
+    <aside class="main-sidebar sidebar-dark-blue elevation-4">
         <!-- Brand Logo -->
         <a href="<?php echo BASE; ?>" class="brand-link">
-            <span class="brand-text font-weight-bold">SR System</span>
+            <span class="brand-text font-weight-bold" style="text-align: center;margin-left: 55px;">SR System</span>
         </a>
 
         <!-- Sidebar -->
@@ -89,7 +89,8 @@ if(!isset($_SESSION['id'])) {
                     <img src="<?php echo BASE; ?>assets/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a class="d-block">TEST</a>
+                    <a class="d-block"><?php echo strtoupper($_SESSION["username"]);?></a>
+                    <a class="d-block"><small>(<?php echo strtoupper($_SESSION["role"]);?></small>)</a>
                 </div>
             </div>
 
@@ -121,6 +122,14 @@ if(!isset($_SESSION['id'])) {
                         <a href="<?php echo BASE;?>reports" class="nav-link">
                             <i class="nav-icon far fa-fw fa-file"></i>
                             <p>Reports</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-header">Admins</li>
+                    <li class="nav-item">
+                        <a href="<?php echo BASE;?>staffs" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Staff</p>
                         </a>
                     </li>
                 </ul>
