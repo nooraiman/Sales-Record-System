@@ -1,6 +1,17 @@
 <?php
 require 'database.php';
 define('BASE', '');
+    
+//SESSION CHECK
+session_start();
+if(!isset($_SESSION['id'])) {
+    echo "
+    <script>
+        alert('You need to login first!'); 
+        window.location = 'login.php';
+    </script>";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
