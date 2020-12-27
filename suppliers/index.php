@@ -168,9 +168,7 @@ include '../includes/footer.php';
                 if(response == 'success')
                 {
                     alert('[Success] Supplier Has Been Added');
-                    $('#addSupplier').modal('hide');
-                    sleep(3);
-                    window.location.reload();
+                    window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
                 }
                 
             },
@@ -190,10 +188,8 @@ include '../includes/footer.php';
             success: function(response) {
                 if(response == 'success')
                 {
-                    alert(['Success] Supplier Has Been Updated!']);
-                    $('#editSupplier').modal('hide');
-                    sleep(3);
-                    window.location.reload();
+                    alert(['[Success] Supplier Has Been Updated!']);
+                    window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
                 }
             }
         })
