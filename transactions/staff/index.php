@@ -135,6 +135,7 @@ include '../../includes/footer.php';
     var searchBox = $('#'+table_id+'_wrapper .row:first-child .col-sm-12 #'+table_id+'_filter label');
     searchBox.children().unwrap();
     $('#'+table_id).addClass('mt-1');
+    $('#'+table_id+'_wrapper .row .dataTables_paginate .pagination').addClass('pull-right');
 
 // #UNFINISHED YET
 //OTHER FUNCTIONS TO BE DONE...

@@ -60,7 +60,7 @@ include '../../includes/header.php';
                                         <td>452523</td>
                                         <td>23/5/2000</td>
                                         <td>24/5/2000 by <a href="#" data-toggle="tool-tip" title="Mr Test">Test999</a></td>
-                                        <td>
+                                        <td class="dt-center">
                                             <button class="edit btn btn-sm btn-success" value="1">Edit</button>
                                             <button class="delete btn btn-sm btn-danger" value="1">Delete</button>
                                         </td>
@@ -73,7 +73,7 @@ include '../../includes/header.php';
                                         <td>452523</td>
                                         <td>23/5/2000</td>
                                         <td>24/5/2000 by <a href="#" data-toggle="tool-tip" title="Mr Test">Test999</a></td>
-                                        <td>
+                                        <td class="dt-center">
                                             <button class="edit btn btn-sm btn-success" value="1">Edit</button>
                                             <button class="delete btn btn-sm btn-danger" value="1">Delete</button>
                                         </td>
@@ -97,7 +97,7 @@ include '../../includes/header.php';
                                             <td><?php echo ($row['prod_price']*$row['tr_qty']);?></td>
                                             <td><?php echo $row['tr_date'];?></td>
                                             <td><?php echo $row['tr_key_in'];?> by <a href="#" title="<?php echo $row['st_name'];?>"><?php echo $row['st_username'];?></a></td>
-                                            <td>
+                                            <td class="dt-center">
                                                 <button class="edit btn btn-sm btn-success" value="<?php echo $row['tr_id'];?>">Edit</button>
                                                 <button class="delete btn btn-sm btn-danger" value="<?php echo $row['tr_id'];?>">Delete</button>
                                             </td>
@@ -145,6 +145,7 @@ include '../../includes/footer.php';
     var searchBox = $('#'+table_id+'_wrapper .row:first-child .col-sm-12 #'+table_id+'_filter label');
     searchBox.children().unwrap();
     $('#'+table_id).addClass('mt-1');
+    $('#'+table_id+'_wrapper .row .dataTables_paginate .pagination').addClass('pull-right');
 
 // #UNFINISHED YET
 //OTHER FUNCTIONS TO BE DONE...
