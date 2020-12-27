@@ -45,6 +45,7 @@ if(!isset($_SESSION['id'])) {
     <style>
         .pull-left{float:left!important;}
         .pull-right{float:right!important;}
+        .dt-center{text-align:center;}
     </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

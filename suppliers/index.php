@@ -276,6 +276,9 @@ include '../includes/footer.php';
                     }
                 },
             ],
+            "columnDefs": [
+                {"className": "dt-center", "targets": [4]}
+            ],
             "pageLength": '10',
             "responsive": true,
             "lengthChange": false,
