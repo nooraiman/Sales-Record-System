@@ -257,8 +257,6 @@ include '../includes/footer.php';
 
         // DataTables
         var table = $('#supplier_list').DataTable({
-            //dom: "<'row' <'col-sm-12 col-md-6' B> <'col-sm-12 col-md-6' f> >",
-            //dom: '<"row" <"col-sm-12 col-md-6"<"pull-left"B>> <"col-sm-12 col-md-6"<"pull-right"f>> >',
             buttons: [
                 {
                     text:'Add Supplier',
