@@ -166,6 +166,7 @@ include '../includes/footer.php';
         $.ajax({
             type: "POST",
             url: "suppliers.php",
+            async: true,
             cache: false,
             data: $('form#addSupplier_form').serialize(),
             success: function(response) {
@@ -187,6 +188,7 @@ include '../includes/footer.php';
         $.ajax({
             type: "POST",
             url: "suppliers.php",
+            async: true,
             cache: false,
             data: $('form#editSupplier_form').serialize(),
             success: function(response) {
