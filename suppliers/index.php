@@ -65,7 +65,7 @@ include '../includes/header.php';
                                             <td><?php echo $row['su_email'];?></td>
                                             <td>
                                                 <button class = "edit btn btn-sm btn-success" value="<?php echo $row['su_id'];?>">Edit</button>
-                                                <a href = "suppliers.php?deleteSupplier&id=<?php echo $row['su_id'];?>"><button class="btn btn-sm btn-danger">Delete</button></a>
+                                                <button class="delete btn btn-sm btn-danger" value="<?php echo $row['su_id'];?>">Delete</button>
                                             </td>
                                         </tr>
                                         <?php
@@ -228,6 +228,26 @@ include '../includes/footer.php';
             })
             $('#editSupplier').modal('show');
         });
+
+        // Delete Button
+        $('.delete').click(function() {
+            var idSupplier = $(this).val();
+            
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.value) {
+                    window.location.href = "suppliers.php?deleteSupplier&id=" + idSupplier;
+                }
+            });
+        });
+
 
         // Form Submit - Add Supplier
         $('#addSupplier_form').submit(function(event) {

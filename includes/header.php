@@ -38,6 +38,8 @@ if(!isset($_SESSION['id'])) {
     <link rel="stylesheet" href="<?php echo BASE;?>assets/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="<?php echo BASE;?>assets/plugins/summernote/summernote-bs4.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="<?php echo BASE;?>assets/plugins/sweetalert2/sweetalert2.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
