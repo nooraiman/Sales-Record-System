@@ -96,29 +96,28 @@ include '../includes/header.php';
                     <h4 class="modal-title">Add Supplier</h4>
                     <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-
-                <form id="addSupplier_form" name="addSupplier_form" role="form">
                     <div class="modal-body">
+                        <form id="addSupplier_form" method="post" role="form" autocomplete="off">
                         <div class="form-group">
                             <label for="supplierName">Supplier Name:</label>
-                            <input type="text" name="supplierName" class="form-control">
+                            <input type="text" name="supplierName" class="form-control" autocomplete="off" required>
                         </div>
                         <div class="form-group">
                             <label for="supplierPhone">Supplier Phone:</label>
-                            <input type="text" name="supplierPhone" class="form-control">
+                            <input type="text" name="supplierPhone" class="form-control" autocomplete="off" required>
                         </div>
                         <div class="form-group">
                             <label for="supplierEmail">Supplier Email:</label>
-                            <input type="text" name="supplierEmail" class="form-control">
+                            <input type="text" name="supplierEmail" class="form-control" autocomplete="off" required>
                         </div>
                         <input type="hidden" name="insertSupplier" value="1">
+                        </form>
                     </div>
 
                     <div class="modal-footer justify-content-between">
-                        <!-- <button class="btn btn-default" data-dismiss="modal">Close</button> -->
-                        <button class="btn btn-primary" name="addSupplier_btn">Add</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" id="addSupplier_btn" name="addSupplier_btn">Add</button>
                     </div>
-                </form>
             </div>
         </div>
     </div>
@@ -130,29 +129,29 @@ include '../includes/header.php';
                     <h4 class="modal-title">Edit Supplier</h4>
                     <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form id="editSupplier_form" name="editSupplier_form" role="form">
                     <div class="modal-body">
+                        <form id="editSupplier_form" method="post" role="form" autocomplete="off">
                         <div class="form-group">
                             <label for="EsupplierName">Supplier Name:</label>
                             <input type="hidden" id="EsupplierID" name="EsupplierID" class="form-control">
-                            <input type="text" id="EsupplierName" name="EsupplierName" class="form-control">
+                            <input type="text" id="EsupplierName" name="EsupplierName" class="form-control" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="EsupplierPhone">Supplier Phone:</label>
-                            <input type="text" id="EsupplierPhone" name="EsupplierPhone" class="form-control">
+                            <input type="text" id="EsupplierPhone" name="EsupplierPhone" class="form-control" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="EsupplierEmail">Supplier Email:</label>
-                            <input type="text" id="EsupplierEmail" name="EsupplierEmail" class="form-control">
+                            <input type="text" id="EsupplierEmail" name="EsupplierEmail" class="form-control" autocomplete="off">
                         </div>
                         <input type="hidden" name="editSupplier" value="1">
+                        </form>
                     </div>
 
                     <div class="modal-footer justify-content-between">
-                        <!-- <button class="btn btn-default" data-dismiss="modal">Close</button> -->
-                        <button class="btn btn-primary" name="editSupplier_btn">Edit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" id="editSupplier_btn" name="editSupplier_btn">Edit</button>
                     </div>
-                </form>
             </div>
         </div>
     </div>
@@ -160,47 +159,7 @@ include '../includes/header.php';
 <?php
 include '../includes/footer.php';
 ?>
-    <script>
-    //Add Supplier
-    function addSupplier() {
-        $.ajax({
-            type: "POST",
-            url: "suppliers.php",
-            async: true,
-            cache: false,
-            data: $('form#addSupplier_form').serialize(),
-            success: function(response) {
-                if(response == 'success')
-                {
-                    alert('[Success] Supplier Has Been Added');
-                    window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
-                }
-                
-            },
-            error: function(response) {
-                console.log(response);
-            }
-        })
-    }
 
-    //Edit Supplier
-    function editSupplier() {
-        $.ajax({
-            type: "POST",
-            url: "suppliers.php",
-            async: true,
-            cache: false,
-            data: $('form#editSupplier_form').serialize(),
-            success: function(response) {
-                if(response == 'success')
-                {
-                    alert(['[Success] Supplier Has Been Updated!']);
-                    window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
-                }
-            }
-        })
-    }
-    </script>
 
     <script>
     $(document).ready(function() {
@@ -250,31 +209,38 @@ include '../includes/footer.php';
             });
         });
 
-
-        // Form Submit - Add Supplier
-        $('#addSupplier_form').submit(function(event) {
-            if($("[name='supplierName']").val() != '' && $("[name='supplierPhone']").val() != '' && $("[name='supplierEmail']").val() != '')
-            {
-                addSupplier();
-            }
-            else
-            {
-                alert('Please Fill-In All The Fields!');
-                return false;
-            }
+        // Submit Form - Add Supplier
+        $('#addSupplier_btn').click(function(e) {
+            e.preventDefault;
+            var form_data = $('form#addSupplier_form').serialize();
+            $.ajax({
+                type: "POST",
+                async: false,
+                cache: false,
+                url: "suppliers.php",
+                data: form_data,
+                success: function(response) {
+                    window.alert(['[Success] Supplier Has Been Added!']);
+                    window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                }
+            })
         });
 
-        //Form Submit - Edit Supplier
-        $('#editSupplier_form').submit(function(event) {
-            if($("[name='EsupplierName']").val() != '' && $("[name='EsupplierPhone']").val() != '' && $("[name='EsupplierEmail']").val() != '')
-            {
-                editSupplier();
-            }
-            else
-            {
-                alert('Please Fill-In All The Fields!');
-                return false;
-            }
+        // Submit Form - Edit Supplier
+        $('#editSupplier_btn').click(function(e){
+            e.preventDefault;
+            var form_data = $('form#editSupplier_form').serialize();
+            $.ajax({
+                type: "POST",
+                async: false,
+                cache: false,
+                url: 'suppliers.php',
+                data: form_data,
+                success: function(response) {
+                    window.alert(['[Success] Supplier Has Been Updated!']);
+                    window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                }
+            })
         });
 
         // DataTables

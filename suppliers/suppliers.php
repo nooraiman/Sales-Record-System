@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/database.php';
+require '../includes/database.php';
 
 function insertSupplier($name,$phone,$email) 
 {
@@ -17,7 +17,7 @@ function insertSupplier($name,$phone,$email)
         $result = "failed";
     }
 
-    return $result;
+    echo $result;
 }
 
 function getSupplier($id)
@@ -63,7 +63,7 @@ function editSupplier($id,$name,$phone,$email)
         $result = "failed";
     }
 
-    return $result;
+    echo $result;
 }
 
 function deleteSupplier($id)
@@ -74,8 +74,7 @@ function deleteSupplier($id)
     {
         $stmt = $conn->prepare("DELETE FROM supplier WHERE su_id = ?");
         $stmt->execute([$id]);
-        echo "<script>alert('[Success] Supplier Has Been Deleted!');window.location.replace('/suppliers/');</script>";
-
+        echo "<script>window.alert('[Success] Supplier Has Been Deleted!');window.location.replace('/suppliers');</script>";
     }
     catch(PDOException $e)
     {
@@ -87,11 +86,11 @@ function deleteSupplier($id)
 
 if(isset($_POST['insertSupplier']))
 {
-    $name = strip_tags($_POST['supplierName']);
-    $phone = strip_tags($_POST['supplierPhone']);
-    $email = strip_tags($_POST['supplierEmail']);
+    $name = $_POST['supplierName'];
+    $phone = $_POST['supplierPhone'];
+    $email = $_POST['supplierEmail'];
 
-    echo(insertSupplier($name,$phone,$email));
+    insertSupplier($name,$phone,$email);
 }
 else if(isset($_GET['getSupplier']))
 {
@@ -100,16 +99,16 @@ else if(isset($_GET['getSupplier']))
 }
 else if(isset($_POST['editSupplier']))
 {
-    $id = strip_tags($_POST['EsupplierID']);
-    $name = strip_tags($_POST['EsupplierName']);
-    $phone = strip_tags($_POST['EsupplierPhone']);
-    $email = strip_tags($_POST['EsupplierEmail']);
+    $id = $_POST['EsupplierID'];
+    $name = $_POST['EsupplierName'];
+    $phone = $_POST['EsupplierPhone'];
+    $email = $_POST['EsupplierEmail'];
 
-    echo(editSupplier($id,$name,$phone,$email));
+    editSupplier($id,$name,$phone,$email);
 }
 else if(isset($_GET['deleteSupplier']))
 {
-    $id = strip_tags($_GET['id']);
+    $id = $_GET['id'];
     deleteSupplier($id);
 }
 else
