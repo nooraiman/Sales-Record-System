@@ -37,13 +37,15 @@ include '../includes/header.php';
 
                             <!-- card-body -->
                             <div class="card-body">
-                                <table id="supplier_list" class="table table-bordered table-striped" style="max-width: 100%">
+                                <table id="supplier_list" class="table table-bordered table-striped">
                                     <thead>
-                                        <th>Supplier ID</th>
-                                        <th>Supplier Name</th>
-                                        <th>Supplier Phone</th>
-                                        <th>Supplier Email</th>
-                                        <th>Action</th>
+                                        <tr>
+                                            <th>Supplier ID</th>
+                                            <th>Supplier Name</th>
+                                            <th>Supplier Phone</th>
+                                            <th>Supplier Email</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                     <?php
@@ -55,6 +57,7 @@ include '../includes/header.php';
                                         while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                                         {
                                         ?>
+
                                         <tr>
                                             <td><?php echo $row['su_id'];?></td>
                                             <td><?php echo $row['su_name'];?></td>
@@ -73,6 +76,7 @@ include '../includes/header.php';
                                         throw $e->getMessage();
                                     }
                                     ?>
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -85,9 +89,6 @@ include '../includes/header.php';
         </section>
     </div>
 
-<?php
-include '../includes/footer.php';
-?>
     <div class="modal fade" id="addSupplier">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -156,6 +157,9 @@ include '../includes/footer.php';
         </div>
     </div>
 
+<?php
+include '../includes/footer.php';
+?>
     <script>
     //Add Supplier
     function addSupplier() {
@@ -267,10 +271,10 @@ include '../includes/footer.php';
                     }
                 },
             ],
-            autoWidth: true,
-            responsive: true,
-            lengthChange: false
-        })
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false
+        });
         table.buttons().container().appendTo('#supplier_list_wrapper .col-md-6:eq(0)');
     })
     </script>

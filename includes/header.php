@@ -69,7 +69,7 @@ if(!isset($_SESSION['id'])) {
                         <span class="dropdown-item dropdown-header">SR System</span>
                         <div class="dropdown-divider"></div>
                         <a href="<?php echo BASE;?>logout.php" class="dropdown-item">
-                        Sign Out 
+                        Logout
                         <span class="float-right text-muted text-sm"><i class="fas fa-sign-out-alt"></i>
                         </a>
                     </div>

@@ -45,7 +45,7 @@ $page_title = "SRS | Login";
         <footer>
             <hr>
             <small><strong>Copyright &copy; 2020 <a href="#">SRS Teams</a>.</strong>
-            All rights reserved. Version 1.0</small>
+            All rights reserved.</small>
         </footer>
     </div>
     <!-- Login Box Ends -->
