@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 22, 2020 at 02:17 AM
+-- Generation Time: Dec 27, 2020 at 03:29 AM
 -- Server version: 10.5.8-MariaDB-log
 -- PHP Version: 7.4.13
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `srs`
 --
+CREATE DATABASE IF NOT EXISTS `srs` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `srs`;
 
 -- --------------------------------------------------------
 
@@ -27,11 +29,20 @@ SET time_zone = "+00:00";
 -- Table structure for table `login`
 --
 
+DROP TABLE IF EXISTS `login`;
 CREATE TABLE `login` (
   `lo_id` int(11) NOT NULL,
-  `st_id` int(11) NOT NULL,
+  `st_id` varchar(12) NOT NULL,
   `ro_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`lo_id`, `st_id`, `ro_id`) VALUES
+(1, '999', 1),
+(2, '998', 2);
 
 -- --------------------------------------------------------
 
@@ -39,12 +50,13 @@ CREATE TABLE `login` (
 -- Table structure for table `product`
 --
 
+DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `prod_id` int(11) NOT NULL,
   `prod_name` varchar(200) DEFAULT NULL,
   `prod_price` double DEFAULT NULL,
   `su_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -52,10 +64,19 @@ CREATE TABLE `product` (
 -- Table structure for table `role`
 --
 
+DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `ro_id` int(11) NOT NULL,
   `ro_name` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`ro_id`, `ro_name`) VALUES
+(1, 'Admin'),
+(2, 'Staff');
 
 -- --------------------------------------------------------
 
@@ -63,13 +84,22 @@ CREATE TABLE `role` (
 -- Table structure for table `staff`
 --
 
+DROP TABLE IF EXISTS `staff`;
 CREATE TABLE `staff` (
-  `st_id` int(11) NOT NULL,
+  `st_id` varchar(12) NOT NULL,
   `st_username` varchar(45) NOT NULL,
   `st_password` varchar(45) NOT NULL,
   `st_name` varchar(200) DEFAULT NULL,
   `st_email` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `staff`
+--
+
+INSERT INTO `staff` (`st_id`, `st_username`, `st_password`, `st_name`, `st_email`) VALUES
+('998', 'Staff998', '58b1216b06850385d9a4eadbedc806c4', 'Staff Test', 'test@test.test'),
+('999', 'Admin999', '58b1216b06850385d9a4eadbedc806c4', 'Admin Test', 'test@test.test');
 
 -- --------------------------------------------------------
 
@@ -77,12 +107,13 @@ CREATE TABLE `staff` (
 -- Table structure for table `supplier`
 --
 
+DROP TABLE IF EXISTS `supplier`;
 CREATE TABLE `supplier` (
   `su_id` int(11) NOT NULL,
   `su_name` varchar(150) DEFAULT NULL,
   `su_phone` varchar(13) DEFAULT NULL,
   `su_email` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -90,14 +121,15 @@ CREATE TABLE `supplier` (
 -- Table structure for table `transaction`
 --
 
+DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE `transaction` (
   `tr_id` int(11) NOT NULL,
   `prod_id` int(11) NOT NULL,
-  `st_id` int(11) NOT NULL,
+  `st_id` varchar(12) NOT NULL,
   `tr_qty` int(11) DEFAULT NULL,
   `tr_date` datetime DEFAULT NULL,
   `tr_key_in` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -108,8 +140,8 @@ CREATE TABLE `transaction` (
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`lo_id`),
-  ADD KEY `fk_login_staff_idx` (`st_id`),
-  ADD KEY `fk_login_role_idx` (`ro_id`);
+  ADD KEY `fk_login_role_idx` (`ro_id`),
+  ADD KEY `fk_login_staff_idx` (`st_id`);
 
 --
 -- Indexes for table `product`
@@ -152,7 +184,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `lo_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `lo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -164,7 +196,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `ro_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -186,21 +218,21 @@ ALTER TABLE `transaction`
 -- Constraints for table `login`
 --
 ALTER TABLE `login`
-  ADD CONSTRAINT `fk_login_role` FOREIGN KEY (`ro_id`) REFERENCES `role` (`ro_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_login_staff` FOREIGN KEY (`st_id`) REFERENCES `staff` (`st_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_login_role` FOREIGN KEY (`ro_id`) REFERENCES `role` (`ro_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_login_staff` FOREIGN KEY (`st_id`) REFERENCES `staff` (`st_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `fk_prod_sup` FOREIGN KEY (`su_id`) REFERENCES `supplier` (`su_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_prod_sup` FOREIGN KEY (`su_id`) REFERENCES `supplier` (`su_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `transaction`
 --
 ALTER TABLE `transaction`
-  ADD CONSTRAINT `fk_trans_prod` FOREIGN KEY (`prod_id`) REFERENCES `product` (`prod_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_trans_staff` FOREIGN KEY (`st_id`) REFERENCES `staff` (`st_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_trans_prod` FOREIGN KEY (`prod_id`) REFERENCES `product` (`prod_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_trans_staff` FOREIGN KEY (`st_id`) REFERENCES `staff` (`st_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

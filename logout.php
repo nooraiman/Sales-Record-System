@@ -33,7 +33,6 @@ $page_title = "Logging out...";
             reverseButtons: true
             }).then((result) => {
             if (result.isConfirmed) {
-                alert("Successfully logged out!");
                 window.location = "login.php?logout=4236a440a662cc8253d7536e5aa17942"; //logout in md5 (not encryption but just unique so ppl wont type this by chance)
             } else if (
                 result.dismiss === Swal.DismissReason.cancel

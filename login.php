@@ -137,7 +137,7 @@ $page_title = "SRS | Login";
                                 $_SESSION["name"] = $row["st_name"];
                                 $_SESSION["email"] = $row["st_email"];
                                 $_SESSION["role"] = $row["ro_name"];
-                                echo "<script>redirectBox('Successfully logged in!','You are authorized.','index.php');</script>";
+                                echo "<script>redirectBox('Successfully logged in!','You are authorized.','/');</script>";
                             } else {
                                 echo "<script>messageBox('Login failed!','Please check your information again. <br>Error code: L02');</script>"; //L02 means wrong password.
                             }

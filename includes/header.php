@@ -1,13 +1,12 @@
 <?php
 require 'database.php';
-define('BASE', '');
+define('BASE', '/');
     
 //SESSION CHECK
 session_start();
 if(!isset($_SESSION['id'])) {
     echo "
     <script>
-        alert('You need to login first!'); 
         window.location = 'login.php';
     </script>";
 }
@@ -41,6 +40,11 @@ if(!isset($_SESSION['id'])) {
     <link rel="stylesheet" href="<?php echo BASE;?>assets/plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <style>
+        .pull-left{float:left!important;}
+        .pull-right{float:right!important;}
+    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -98,28 +102,28 @@ if(!isset($_SESSION['id'])) {
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a href="/" class="nav-link">
                             <i class="nav-icon fa fa-home"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="<?php echo BASE;?>products" class="nav-link">
+                        <a href="<?php echo BASE;?>products/" class="nav-link">
                             <i class="nav-icon fab fa-wpforms"></i>
                             <p>Products</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="<?php echo BASE;?>transactions" class="nav-link">
+                        <a href="<?php echo BASE;?>transactions/" class="nav-link">
                             <i class="nav-icon fas fa-exchange-alt"></i>
                             <p>Transactions</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="<?php echo BASE;?>reports" class="nav-link">
+                        <a href="<?php echo BASE;?>reports/" class="nav-link">
                             <i class="nav-icon far fa-fw fa-file"></i>
                             <p>Reports</p>
                         </a>
@@ -127,7 +131,7 @@ if(!isset($_SESSION['id'])) {
 
                     <li class="nav-header">Admins</li>
                     <li class="nav-item">
-                        <a href="<?php echo BASE;?>staffs" class="nav-link">
+                        <a href="<?php echo BASE;?>staffs/" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
                             <p>Staff</p>
                         </a>
