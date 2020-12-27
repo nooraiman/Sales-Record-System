@@ -64,8 +64,8 @@ include '../includes/header.php';
                                             <td><?php echo $row['su_phone'];?></td>
                                             <td><?php echo $row['su_email'];?></td>
                                             <td>
-                                                <button class="edit btn btn-sm btn-info" value="<?php echo $row['su_id'];?>">Edit</button>
-                                                <a href="suppliers.php?deleteSupplier&id=<?php echo $row['su_id'];?>"><button class="btn btn-sm btn-danger">Delete</button></a>
+                                                <button class = "edit btn btn-sm btn-success" value="<?php echo $row['su_id'];?>">Edit</button>
+                                                <a href = "suppliers.php?deleteSupplier&id=<?php echo $row['su_id'];?>"><button class="btn btn-sm btn-danger">Delete</button></a>
                                             </td>
                                         </tr>
                                         <?php
