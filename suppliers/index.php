@@ -100,15 +100,15 @@ include '../includes/header.php';
                         <form id="addSupplier_form" method="post" role="form" autocomplete="off">
                         <div class="form-group">
                             <label for="supplierName">Supplier Name:</label>
-                            <input type="text" name="supplierName" class="form-control" autocomplete="off" required>
+                            <input type="text" id="supplierName" name="supplierName" class="form-control" autocomplete="off" required>
                         </div>
                         <div class="form-group">
                             <label for="supplierPhone">Supplier Phone:</label>
-                            <input type="text" name="supplierPhone" class="form-control" autocomplete="off" required>
+                            <input type="text" id="supplierPhone" name="supplierPhone" class="form-control" autocomplete="off" required>
                         </div>
                         <div class="form-group">
                             <label for="supplierEmail">Supplier Email:</label>
-                            <input type="text" name="supplierEmail" class="form-control" autocomplete="off" required>
+                            <input type="text" id="supplierEmail" name="supplierEmail" class="form-control" autocomplete="off" required>
                         </div>
                         <input type="hidden" name="insertSupplier" value="1">
                         </form>
@@ -212,39 +212,58 @@ include '../includes/footer.php';
         // Submit Form - Add Supplier
         $('#addSupplier_btn').click(function(e) {
             e.preventDefault;
-            var form_data = $('form#addSupplier_form').serialize();
-            $.ajax({
-                type: "POST",
-                async: false,
-                cache: false,
-                url: "suppliers.php",
-                data: form_data,
-                success: function(response) {
-                    window.alert(['[Success] Supplier Has Been Added!']);
-                    window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
-                }
-            })
+
+            if($('#supplierName').val() && $('#supplierPhone').val() && $('#supplierEmail').val())
+            {
+                var form_data = $('form#addSupplier_form').serialize();
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    cache: false,
+                    url: "suppliers.php",
+                    data: form_data,
+                    success: function(response) {
+                        window.alert(['[Success] Supplier Has Been Added!']);
+                        window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                    }
+                })
+            }
+            else
+            {
+                alert("Please Fill-In All The Empty Fields!");
+                return false;
+            }
         });
 
         // Submit Form - Edit Supplier
         $('#editSupplier_btn').click(function(e){
             e.preventDefault;
-            var form_data = $('form#editSupplier_form').serialize();
-            $.ajax({
-                type: "POST",
-                async: false,
-                cache: false,
-                url: 'suppliers.php',
-                data: form_data,
-                success: function(response) {
-                    window.alert(['[Success] Supplier Has Been Updated!']);
-                    window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
-                }
-            })
+
+            if($('#EsupplierName').val() && $('#EsupplierPhone').val() && $('#EsupplierEmail').val())
+            {
+                var form_data = $('form#editSupplier_form').serialize();
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    cache: false,
+                    url: 'suppliers.php',
+                    data: form_data,
+                    success: function(response) {
+                        window.alert(['[Success] Supplier Has Been Updated!']);
+                        window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                    }
+                })
+            }
+            else
+            {
+                alert("Please Fill-In All The Empty Fields!");
+                return false;
+            }
         });
 
         // DataTables
         var table = $('#supplier_list').DataTable({
+            dom: '<"row" <"col-sm-12 col-md-6" <"pull-left"B>> <"col-sm-12 col-md-6" <"pull-right"f>> >',
             buttons: [
                 {
                     text:'Add Supplier',
@@ -261,7 +280,7 @@ include '../includes/footer.php';
             "lengthChange": false,
             "autoWidth": false
         });
-        table.buttons().container().appendTo('#supplier_list_wrapper .col-md-6:eq(0)');
+        //table.buttons().container().appendTo('#supplier_list_wrapper .col-md-6:eq(0)');
     })
     </script>
 </body>
