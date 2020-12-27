@@ -7,7 +7,7 @@ session_start();
 if(!isset($_SESSION['id'])) {
     echo "
     <script>
-        window.location = 'login.php';
+        window.location = '/login.php';
     </script>";
 }
 
@@ -112,6 +112,13 @@ if(!isset($_SESSION['id'])) {
                         <a href="<?php echo BASE;?>products/" class="nav-link">
                             <i class="nav-icon fab fa-wpforms"></i>
                             <p>Products</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="<?php echo BASE;?>suppliers/" class="nav-link">
+                            <i class="nav-icon fas fa-store"></i>
+                            <p>Suppliers</p>
                         </a>
                     </li>
 
