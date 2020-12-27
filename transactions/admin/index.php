@@ -136,9 +136,9 @@ include '../../includes/footer.php';
                 "lengthChange": false,
                 "autoWidth": false
             });
-    $('#'+table_id+'_wrapper .row:first-child .col-sm-12:first-child').remove();
 
-    // Custom script to fix searchbox styling
+    // Custom script to fix searchbox styling 
+    $('#'+table_id+'_wrapper .row:first-child .col-sm-12:first-child').remove();
     var searchBoxRow = $('#'+table_id+'_wrapper .row:first-child .col-sm-12');
     searchBoxRow.removeClass('col-md-6');
     searchBoxRow.addClass('col-md-12');
