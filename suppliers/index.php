@@ -44,7 +44,11 @@ include '../includes/header.php';
                                             <th>Supplier Name</th>
                                             <th>Supplier Phone</th>
                                             <th>Supplier Email</th>
+
+                                            <?php if($_SESSION['role'] == 'Admin') {?>
                                             <th>Action</th>
+                                            <?php } ?>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,10 +67,14 @@ include '../includes/header.php';
                                             <td><?php echo $row['su_name'];?></td>
                                             <td><?php echo $row['su_phone'];?></td>
                                             <td><?php echo $row['su_email'];?></td>
+
+                                            <?php if($_SESSION['role'] == 'Admin') {?>
                                             <td>
                                                 <button class = "edit btn btn-sm btn-success" value="<?php echo $row['su_id'];?>">Edit</button>
                                                 <button class="delete btn btn-sm btn-danger" value="<?php echo $row['su_id'];?>">Delete</button>
                                             </td>
+                                            <?php } ?>
+
                                         </tr>
                                         <?php
                                         }
@@ -121,7 +129,10 @@ include '../includes/header.php';
             </div>
         </div>
     </div>
-
+    
+    <?php if($_SESSION['role'] == 'Admin') 
+    {
+    ?>
     <div class="modal fade" id="editSupplier">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -155,6 +166,9 @@ include '../includes/header.php';
             </div>
         </div>
     </div>
+    <?php
+    }
+    ?>
 
 <?php
 include '../includes/footer.php';
@@ -163,6 +177,7 @@ include '../includes/footer.php';
 
     <script>
     $(document).ready(function() {
+        <?php if($_SESSION['role'] == 'Admin') {?>
         // Edit Button
         $('.edit').click(function() {
             var idSupplier = $(this).val();
@@ -209,6 +224,8 @@ include '../includes/footer.php';
             });
         });
 
+        <?php } ?>
+
         // Submit Form - Add Supplier
         $('#addSupplier_btn').click(function(e) {
             e.preventDefault;
@@ -235,6 +252,9 @@ include '../includes/footer.php';
             }
         });
 
+        <?php if($_SESSION['role'] == 'Admin') 
+        {
+        ?>
         // Submit Form - Edit Supplier
         $('#editSupplier_btn').click(function(e){
             e.preventDefault;
@@ -261,6 +281,10 @@ include '../includes/footer.php';
             }
         });
 
+        <?php
+        }
+        ?>
+
         // DataTables
         var table = $('#supplier_list').DataTable({
             dom: '<"row" <"col-sm-12 col-md-6" <"pull-left"B>> <"col-sm-12 col-md-6" <"pull-right"f>> >' + '<"row" <"col-12" t> >' + '<"row" <"col-sm-12 col-md-6" i> <"col-sm-12 col-md-6" <"pull-right"p>> >',
@@ -276,9 +300,11 @@ include '../includes/footer.php';
                     }
                 },
             ],
+            <?php if($_SESSION['role'] == 'Admin') {?>
             "columnDefs": [
                 {"className": "dt-center", "targets": [4]}
             ],
+            <?php } ?>
             "pageLength": '10',
             "responsive": true,
             "lengthChange": false,
