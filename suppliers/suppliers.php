@@ -74,7 +74,7 @@ function deleteSupplier($id)
     {
         $stmt = $conn->prepare("DELETE FROM supplier WHERE su_id = ?");
         $stmt->execute([$id]);
-        echo "<script>window.alert('[Success] Supplier Has Been Deleted!');window.location.replace('/suppliers');</script>";
+        echo "<script>window.alert('[Success] Supplier Has Been Deleted!');window.location.href='/suppliers';</script>";
     }
     catch(PDOException $e)
     {
