@@ -97,6 +97,11 @@ include '../includes/header.php';
         </section>
     </div>
 
+    <?php
+    if($_SESSION['role'] == 'Admin')
+    {
+    ?>
+
     <div class="modal fade" id="addProduct">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -142,10 +147,6 @@ include '../includes/header.php';
         </div>
     </div>
     
-    <?php
-    if($_SESSION['role'] == 'Admin')
-    {
-    ?>
     <div class="modal fade" id="editProduct">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -249,10 +250,6 @@ include '../includes/footer.php';
             });
         })
 
-        <?php
-        }
-        ?>
-
         // Submit Form - Add Supplier
         $('#addProduct_btn').click(function(e) {
             e.preventDefault;
@@ -289,10 +286,6 @@ include '../includes/footer.php';
             }
         });
 
-        <?php
-        if($_SESSION['role'] == 'Admin')
-        {
-        ?>
         // Submit Form - Edit Product
         $('#editProduct_btn').click(function(e) {
             e.preventDefault;
@@ -335,6 +328,7 @@ include '../includes/footer.php';
 
         // DataTables
         var table = $('#product_list').DataTable({
+            <?php if($_SESSION['role'] == 'Admin') {?>
             dom: '<"row" <"col-sm-12 col-md-6" <"pull-left"B>> <"col-sm-12 col-md-6" <"pull-right"f>> >' + '<"row" <"col-12" t> >' + '<"row" <"col-sm-12 col-md-6" i> <"col-sm-12 col-md-6" <"pull-right"p>> >',
             buttons: [
                 {
@@ -348,10 +342,13 @@ include '../includes/footer.php';
                     }
                 },
             ],
-            <?php if($_SESSION['role'] == 'Admin') {?>
             "columnDefs": [
                 {"className": "dt-center", "targets": [4]}
             ],
+            <?php 
+            }
+            else { ?>
+            dom: '<"row" <"col-sm-12 col-md-12" <"pull-right"f>> >' + '<"row" <"col-12" t> >' + '<"row" <"col-sm-12 col-md-6" i> <"col-sm-12 col-md-6" <"pull-right"p>> >',
             <?php } ?>
             "pageLength": '10',
             "responsive": true,
