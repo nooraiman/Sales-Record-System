@@ -455,7 +455,7 @@ $(document).ready(function() {
                     $('#edit_tr_qty').val(data.tr_qty);
                     $('#disabled_edit_total_sales').val((data.tr_qty * data.prod_price).toFixed(2));
                     $('#edit_tr_date').val((data.tr_date).replace(' ', 'T'));
-                    $('#disabled_edit_st_id').val(data.st_name);
+                    $('#disabled_edit_st_id').val(data.st_username);
                     $('#edit_st_id').val(data.st_id);
                     $('#edit_tr_key_in').val(getCurrentDateTime());
                 } else {
