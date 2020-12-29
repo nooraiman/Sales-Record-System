@@ -1,5 +1,6 @@
 <?php
 require 'includes/database.php';
+define('BASE', '/');
 session_start();
 $page_title = "Logging out...";
 ?>
@@ -11,11 +12,16 @@ $page_title = "Logging out...";
     <title><?php echo $page_title;?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<?php echo BASE;?>assets/css/adminlte.min.css">
     <!-- Sweet alert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="<?php echo BASE;?>assets/plugins/sweetalert2/sweetalert2.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body>
-    .
+    <!-- Sweet alert -->
+    <script src="<?php echo BASE;?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
     <?php
         if(isset($_SESSION['id'])) {
     ?>
