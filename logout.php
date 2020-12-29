@@ -16,20 +16,17 @@ $page_title = "Logging out...";
     <link rel="stylesheet" href="<?php echo BASE;?>assets/css/adminlte.min.css">
     <!-- Sweet alert -->
     <link rel="stylesheet" href="<?php echo BASE;?>assets/plugins/sweetalert2/sweetalert2.min.css">
+    <!-- Sweet alert -->
+    <script src="<?php echo BASE;?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body>
-    <!-- Sweet alert -->
-    <script src="<?php echo BASE;?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
     <?php
         if(isset($_SESSION['id'])) {
     ?>
         <script>
-            const swalBtns = Swal.mixin({
-            })
-
-            swalBtns.fire({
+            Swal.fire({
             title: 'Are you sure?',
             text: "You are about to log out!",
             icon: 'warning',
@@ -38,13 +35,12 @@ $page_title = "Logging out...";
             cancelButtonText: 'No, cancel!',
             reverseButtons: true
             }).then((result) => {
-            if (result.isConfirmed) {
-                window.location = "login.php?logout=4236a440a662cc8253d7536e5aa17942"; //logout in md5 (not encryption but just unique so ppl wont type this by chance)
-            } else if (
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                window.location = "index.php";
-            }
+                if (result.dismiss === Swal.DismissReason.cancel || result.dismiss === Swal.DismissReason.esc || result.dismiss === Swal.DismissReason.backdrop) {
+                    window.location = "index.php";
+                } else {
+                    alert("logged out");
+                    window.location = "login.php?logout=4236a440a662cc8253d7536e5aa17942"; //logout in md5 (not encryption but just unique so ppl wont type this by chance)
+                }
             });
         </script>
     <?php
