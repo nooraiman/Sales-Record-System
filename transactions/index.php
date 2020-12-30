@@ -294,12 +294,6 @@ $(document).ready(function() {
     $('#addTransaction_btn').click(function(e) {
         e.preventDefault;
         $('#add_tr_key_in').val(getCurrentDateTime());
-        /*
-        alert("Product ID: " + $('#add_prod_id').val());
-        alert("Staff ID: " + $('#add_st_id').val());
-        alert("Quantity: " + $('#add_tr_qty').val());
-        alert("Transaction Date: " + $('#add_tr_date').val());
-        */
 
         if ($('#add_prod_id').val() && ($('#add_prod_id').val() != 'none') && $('#add_st_id').val() && $('#add_tr_qty').val() && $('#add_tr_date').val()) {
             var form_data = $('form#addTransaction_form').serialize();
