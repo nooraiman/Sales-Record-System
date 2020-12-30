@@ -277,12 +277,6 @@ $(document).ready(function() {
         return today;
     }
 
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top',
-        showConfirmButton: false,
-        timer: 1400,
-    });
     // DataTables
     var table_id = "transaction_list";
     var table = $('#' + table_id).DataTable({

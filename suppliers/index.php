@@ -178,6 +178,7 @@ include '../includes/footer.php';
 
     <script>
     $(document).ready(function() {
+
         <?php if($_SESSION['role'] == 'Admin') {?>
         // Edit Button
         $('.edit').click(function() {
@@ -199,7 +200,10 @@ include '../includes/footer.php';
                     }
                     else
                     {
-                        alert("Invalid Supplier ID!")
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Invalid Supplier ID!'
+                        });
                     }
                 }
             })
@@ -220,7 +224,12 @@ include '../includes/footer.php';
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                 if (result.value) {
-                    window.location.href = "suppliers.php?deleteSupplier&id=" + idSupplier;
+                    Toast.fire({
+                            icon: 'success',
+                            title: 'Supplier Has Been Deleted!'
+                        }).then((result) => {
+                            window.location.href = "suppliers.php?deleteSupplier&id=" + idSupplier;
+                        });
                 }
             });
         });
@@ -239,14 +248,22 @@ include '../includes/footer.php';
                     url: "suppliers.php",
                     data: form_data,
                     success: function(response) {
-                        window.alert(['[Success] Supplier Has Been Added!']);
-                        window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                        $('#addSupplier').modal('hide');
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Supplier Has Been Added!'
+                        }).then((result) => {
+                            window.location.href = window.location.href.split("?")[0]; //Remove All Parameter
+                        });
                     }
                 })
             }
             else
             {
-                alert("Please Fill-In All The Empty Fields!");
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please Fill-In All The Empty Fields!'
+                });
                 return false;
             }
         });
@@ -265,14 +282,22 @@ include '../includes/footer.php';
                     url: 'suppliers.php',
                     data: form_data,
                     success: function(response) {
-                        window.alert(['[Success] Supplier Has Been Updated!']);
-                        window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                        $('#editSupplier').modal('hide');
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Supplier Has Been Updated!'
+                        }).then((result) => {
+                            window.location.href = window.location.href.split("?")[0]; //Remove All Parameter
+                        });
                     }
                 })
             }
             else
             {
-                alert("Please Fill-In All The Empty Fields!");
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please Fill-In All The Empty Fields!'
+                });
                 return false;
             }
         });

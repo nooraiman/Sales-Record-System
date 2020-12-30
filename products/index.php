@@ -60,12 +60,13 @@ include '../includes/header.php';
 
                                         while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                                         {
+                                            $formatted_prod_price = number_format((double)$row['prod_price'], 2, '.', '');
                                         ?>
 
                                         <tr>
                                             <td><?php echo $row['prod_id'];?></td>
                                             <td><?php echo $row['prod_name'];?></td>
-                                            <td><?php echo $row['prod_price'];?></td>
+                                            <td class="text-right"><?php echo $formatted_prod_price;?></td>
                                             <td><?php echo $row['su_name'];?></td>
 
                                             <?php if($_SESSION['role'] == 'Admin'){?>
@@ -222,7 +223,7 @@ include '../includes/footer.php';
                     {
                         $('#EproductID').val(data.prod_id);
                         $('#EproductName').val(data.prod_name);
-                        $('#EproductPrice').val(data.prod_price);
+                        $('#EproductPrice').val((data.prod_price * 1).toFixed(2));
                         $('#default').val(data.su_id);
                         $('#default').html(data.su_name);
                     }
@@ -245,7 +246,13 @@ include '../includes/footer.php';
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                 if (result.value) {
-                    window.location.href = "products.php?deleteProduct&id=" + idProduct;
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Product Has Been Deleted!'
+                    }).then((result) => {
+                        window.location.href = "products.php?deleteProduct&id=" + idProduct;
+                    });
+                    
                 }
             });
         })
@@ -253,6 +260,8 @@ include '../includes/footer.php';
         // Submit Form - Add Supplier
         $('#addProduct_btn').click(function(e) {
             e.preventDefault;
+
+            $('#productPrice').val(($('#productPrice').val()*1).toFixed(2));
 
             // Empty Field Validation
             if($('#productName').val() && $('#productPrice').val() && $('#supplier').val())
@@ -269,19 +278,30 @@ include '../includes/footer.php';
                         console.log(response);
                         if(response.trim() == "success")
                         {
-                            window.alert('[Success] Product Has Been Added')
-                            window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                            $('#addProduct').modal('hide');
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Product Has Been Added!'
+                            }).then((result) => {
+                                window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                            });
                         }
                         else
                         {
-                            window.alert('[Fail] Product Has Not Been Added')
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Product Has Not Been Added!'
+                            });
                         }
                     }
                 })
             }
             else
             {
-                alert("Please Fill-In All The Empty Fields!");
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please Fill-In All The Empty Fields!'
+                });
                 return false;
             }
         });
@@ -289,6 +309,7 @@ include '../includes/footer.php';
         // Submit Form - Edit Product
         $('#editProduct_btn').click(function(e) {
             e.preventDefault;
+            $('#EproductPrice').val(($('#EproductPrice').val()*1).toFixed(2));
 
             // Empty Field Validation
             if($('#EproductName').val() && $('#EproductPrice').val() && $('#Esupplier').val())
@@ -305,19 +326,30 @@ include '../includes/footer.php';
                         console.log(response);
                         if(response.trim() == "success")
                         {
-                            window.alert('[Success] Product Has Been Updated')
-                            window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                            $('#editProduct').modal('hide');
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Product Has Been Updated!'
+                            }).then((result) => {
+                                window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                            });
                         }
                         else
                         {
-                            window.alert('[Fail] Product Has Not Been Updated')
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Product Has Not Been Updated!'
+                            });
                         }
                     }
                 })
             }
             else
             {
-                alert("Please Fill-In All The Empty Fields!");
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Please Fill-In All The Empty Fields!'
+                });
                 return false;
             }
         });

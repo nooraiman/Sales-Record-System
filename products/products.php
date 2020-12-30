@@ -74,11 +74,11 @@ function deleteProduct($id)
         $stmt = $conn->prepare("DELETE FROM product WHERE prod_id = ?");
         $stmt->execute([$id]);
         
-        echo "<script>window.alert('[Success] Product Has Been Deleted!');window.location.href='/products';</script>";
+        echo "<script>window.location.href='/products';</script>";
     }
     catch(PDOException $e)
     {
-        echo "<script>alert('[Failed] Product Has Not Been Deleted!');</script>";
+        throw $e->getMessage();
     }
 }
 
