@@ -178,12 +178,6 @@ include '../includes/footer.php';
 
     <script>
     $(document).ready(function() {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top',
-            showConfirmButton: false,
-            timer: 1400,
-        });
 
         <?php if($_SESSION['role'] == 'Admin') {?>
         // Edit Button

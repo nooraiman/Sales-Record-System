@@ -38,6 +38,14 @@
     <script src="<?php echo BASE; ?>assets/js/adminlte.js"></script>
     <!-- Sidebar Menu -->
     <script>
+    // Toast
+    const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 1400,
+        });
+
     /** add active class and stay opened when selected */
     var url = window.location;
 
