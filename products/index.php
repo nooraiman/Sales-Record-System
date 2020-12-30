@@ -60,12 +60,13 @@ include '../includes/header.php';
 
                                         while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                                         {
+                                            $formatted_prod_price = number_format((double)$row['prod_price'], 2, '.', '');
                                         ?>
 
                                         <tr>
                                             <td><?php echo $row['prod_id'];?></td>
                                             <td><?php echo $row['prod_name'];?></td>
-                                            <td><?php echo $row['prod_price'];?></td>
+                                            <td class="text-right"><?php echo $formatted_prod_price;?></td>
                                             <td><?php echo $row['su_name'];?></td>
 
                                             <?php if($_SESSION['role'] == 'Admin'){?>
@@ -228,7 +229,7 @@ include '../includes/footer.php';
                     {
                         $('#EproductID').val(data.prod_id);
                         $('#EproductName').val(data.prod_name);
-                        $('#EproductPrice').val(data.prod_price);
+                        $('#EproductPrice').val((data.prod_price * 1).toFixed(2));
                         $('#default').val(data.su_id);
                         $('#default').html(data.su_name);
                     }
@@ -265,6 +266,8 @@ include '../includes/footer.php';
         // Submit Form - Add Supplier
         $('#addProduct_btn').click(function(e) {
             e.preventDefault;
+
+            $('#productPrice').val(($('#productPrice').val()*1).toFixed(2));
 
             // Empty Field Validation
             if($('#productName').val() && $('#productPrice').val() && $('#supplier').val())
@@ -312,6 +315,7 @@ include '../includes/footer.php';
         // Submit Form - Edit Product
         $('#editProduct_btn').click(function(e) {
             e.preventDefault;
+            $('#EproductPrice').val(($('#EproductPrice').val()*1).toFixed(2));
 
             // Empty Field Validation
             if($('#EproductName').val() && $('#EproductPrice').val() && $('#Esupplier').val())
