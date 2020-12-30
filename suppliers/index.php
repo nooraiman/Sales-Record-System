@@ -178,7 +178,7 @@ include '../includes/footer.php';
 
     <script>
     $(document).ready(function() {
-            const Toast = Swal.mixin({
+        const Toast = Swal.mixin({
             toast: true,
             position: 'top',
             showConfirmButton: false,
