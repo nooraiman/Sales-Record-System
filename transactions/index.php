@@ -34,20 +34,25 @@ function isAdmin() {
     <!-- Main Content -->
     <section class="content">
         <div class="container-fluid">
-            <?php if(isAdmin()) { ?>
-            <!-- ADMIN CARD -->
+            <!-- CARD -->
             <div class="row">
                 <div class="col-12">
                     <div class="card card-primary">
                         <!-- card header -->
                         <div class="card-header">
                             <h3 class="card-title">All Transaction Details</h3>
+                            <?php if(!isAdmin()) { ?>
+                            <div class="card-tools">
+                                <button class="add btn btn-tool bg-success"><i class="fa fa-plus"></i> New
+                                    Transaction</button>
+                            </div>
+                            <?php } ?>
                         </div>
                         <!-- /.card header -->
 
                         <!-- card-body -->
                         <div class="card-body">
-                            <table id="admin_transaction_list" class="table table-bordered table-striped">
+                            <table id="transaction_list" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -57,15 +62,23 @@ function isAdmin() {
                                         <th>Total Sales (RM)</th>
                                         <th>Transaction Date</th>
                                         <th>Submitted Date</th>
+                                        <?php if(isAdmin()) { ?>
                                         <th style="width: 150px;">Action</th>
+                                        <?php } ?>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     try
                                     {
-                                        $stmt = $conn->prepare("SELECT * FROM transaction t JOIN product p ON t.prod_id = p.prod_id JOIN staff s ON t.st_id = s.st_id");
-                                        $stmt->execute();
+                                        if(isAdmin()) {
+                                            $stmt = $conn->prepare("SELECT * FROM transaction t JOIN product p ON t.prod_id = p.prod_id JOIN staff s ON t.st_id = s.st_id");
+                                            $stmt->execute();
+                                        } else {
+                                            $stmt = $conn->prepare("SELECT * FROM transaction t JOIN product p ON t.prod_id = p.prod_id JOIN staff s ON t.st_id = s.st_id WHERE t.st_id=:st_id");
+                                            $stmt->execute(array(':st_id'=>$_SESSION['id']));
+                                        }
+                                        
                                         $no = 0;
                                         while($row = $stmt->fetch(PDO::FETCH_ASSOC))
                                         {
@@ -77,18 +90,22 @@ function isAdmin() {
                                         <td><?php echo ++$no; ?></td>
                                         <td><?php echo $row['prod_name'];?></td>
                                         <td><span class="pull-right"><?php echo $cell_prod_price;?></span></td>
-                                        <td><?php echo $row['tr_qty'];?> units</td>
+                                        <td><?php echo $row['tr_qty'];?> unit(s)</td>
                                         <td><span class="pull-right"><?php echo $cell_total_sales;?></span></td>
                                         <td><?php echo $row['tr_date'];?></td>
-                                        <td><?php echo $row['tr_key_in'];?> <br>by <a href="#"
-                                                title="<?php echo $row['st_name'];?>"><?php echo $row['st_username'];?></a>
+                                        <td><?php echo $row['tr_key_in'];?> 
+                                            <?php if(isAdmin()) { ?>
+                                            <br>by <a href="#" title="<?php echo $row['st_name'];?>"><?php echo $row['st_username'];?></a>
+                                            <?php } ?>
                                         </td>
+                                        <?php if(isAdmin()) { ?>
                                         <td class="dt-center">
                                             <button class="edit btn btn-sm btn-success"
                                                 value="<?php echo $row['tr_id'];?>">Edit</button>
                                             <button class="delete btn btn-sm btn-danger"
                                                 value="<?php echo $row['tr_id'];?>">Delete</button>
                                         </td>
+                                        <?php } ?>
                                     </tr>
                                     <?php
                                         }
@@ -106,76 +123,7 @@ function isAdmin() {
                     </div>
                 </div>
             </div>
-            <!-- / ADMIN CARD -->
-            <?php } else { ?>
-            <!-- STAFF CARD -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card card-primary">
-                        <!-- card header -->
-                        <div class="card-header">
-                            <h3 class="card-title">My Transaction Details</h3>
-                            <div class="card-tools">
-                                <button class="add btn btn-tool bg-success"><i class="fa fa-plus"></i> New
-                                    Transaction</button>
-                            </div>
-                        </div>
-                        <!-- /.card header -->
-
-                        <!-- card-body -->
-                        <div class="card-body">
-                            <table id="staff_transaction_list" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Product Name</th>
-                                        <th>Price Per Unit (RM)</th>
-                                        <th>Quantity</th>
-                                        <th>Total Sales (RM)</th>
-                                        <th>Transaction Date</th>
-                                        <th>Submitted Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    try
-                                    {
-                                        $stmt = $conn->prepare("SELECT * FROM transaction t JOIN product p ON t.prod_id = p.prod_id JOIN staff s ON t.st_id = s.st_id WHERE t.st_id=:st_id");
-                                        $stmt->execute(array(':st_id'=>$_SESSION['id']));
-                                        $no = 0;
-                                        while($row = $stmt->fetch(PDO::FETCH_ASSOC))
-                                        {
-                                            $cell_prod_price = number_format((double)$row['prod_price'], 2, '.', '');
-                                            $cell_total_sales = number_format((double)($row['prod_price']*$row['tr_qty']), 2, '.', '');
-                                        ?>
-
-                                    <tr>
-                                        <td><?php echo ++$no; ?></td>
-                                        <td><?php echo $row['prod_name'];?></td>
-                                        <td><span class="pull-right"><?php echo $cell_prod_price;?></span></td>
-                                        <td><?php echo $row['tr_qty'];?> units</td>
-                                        <td><span class="pull-right"><?php echo $cell_total_sales;?></span></td>
-                                        <td><?php echo $row['tr_date'];?></td>
-                                        <td><?php echo $row['tr_key_in'];?></td>
-                                    </tr>
-                                    <?php
-                                        }
-                                    }
-                                    catch(PDOException $e)
-                                    {
-                                        throw $e->getMessage();
-                                    }
-                                    ?>
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-            </div>
-            <!-- / STAFF -->
-            <?php } ?>
+            <!-- / CARD -->
         </div><!-- /.container-fluid -->
     </section>
 </div>
@@ -225,9 +173,8 @@ include '../includes/footer.php';
                         <div class="row">
                             <div class="col">
                                 <label for="add_tr_date">Transaction Date</label>
-                                <input type="datetime-local" class="form-control" id="add_tr_date" name="add_tr_date"
-                                    required>
-                                <input hidden id="add_tr_key_in" type="datetime-local" name="add_tr_key_in">
+                                <input type="datetime-local" class="form-control" id="add_tr_date" name="add_tr_date" required>
+                                <input hidden type="datetime-local" id="add_tr_key_in" name="add_tr_key_in" required>
                             </div>
                         </div>
                         <div class="row">
@@ -324,8 +271,8 @@ $(document).ready(function() {
         var now = new Date();
         var day = ("0" + now.getDate()).slice(-2);
         var month = ("0" + (now.getMonth() + 1)).slice(-2);
-        var hour = now.getHours();
-        var minute = now.getMinutes();
+        var hour = ("0" + now.getHours()).slice(-2);
+        var minute = ("0" + now.getMinutes()).slice(-2);
         var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + (hour) + ":" + (minute);
         return today;
     }
@@ -336,57 +283,17 @@ $(document).ready(function() {
         showConfirmButton: false,
         timer: 1400,
     });
-    // DataTables Admin
-    var tableAdmin_id = "admin_transaction_list";
-    $('#' + tableAdmin_id).find('*').click(function() {
-        $('#' + tableAdmin_id + '_wrapper .row .dataTables_paginate .pagination').addClass(
-        'pull-right');
+    // DataTables
+    var table_id = "transaction_list";
+    var table = $('#' + table_id).DataTable({
+        dom: '<"row" <"col-sm-12 col-md-12" <"pull-right"f>> >' + '<"row" <"col-12" t> >' + '<"row" <"col-sm-12 col-md-6" i> <"col-sm-12 col-md-6" <"pull-right"p>> >',
+        "paging": false
     });
-    var tableAdmin = $('#' + tableAdmin_id).DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false
-    });
-
-    // Custom script to fix searchbox styling 
-    $('#' + tableAdmin_id + '_wrapper .row:first-child .col-sm-12:first-child').remove();
-    var searchBoxAdminRow = $('#' + tableAdmin_id + '_wrapper .row:first-child .col-sm-12');
-    searchBoxAdminRow.removeClass('col-md-6');
-    searchBoxAdminRow.addClass('col-md-12');
-    var searchBoxAdmin = $('#' + tableAdmin_id + '_wrapper .row:first-child .col-sm-12 #' + tableAdmin_id +
-        '_filter label');
-    searchBoxAdmin.children().unwrap();
-    $('#' + tableAdmin_id).addClass('mt-1');
-    $('#' + tableAdmin_id + '_wrapper .row .dataTables_paginate .pagination').addClass('pull-right');
-
-    // DataTables Staff
-    var tableStaff_id = "staff_transaction_list";
-    $('#' + tableStaff_id).find('*').click(function() {
-        $('#' + tableStaff_id + '_wrapper .row .dataTables_paginate .pagination').addClass(
-        'pull-right');
-    });
-    var tableStaff = $('#' + tableStaff_id).DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false
-    });
-    $('#' + tableStaff_id + '_wrapper .row:first-child .col-sm-12:first-child').remove();
-
-    // Custom script to fix searchbox styling
-    var searchBoxStaffRow = $('#' + tableStaff_id + '_wrapper .row:first-child .col-sm-12');
-    searchBoxStaffRow.removeClass('col-md-6');
-    searchBoxStaffRow.addClass('col-md-12');
-    var searchBoxStaff = $('#' + tableStaff_id + '_wrapper .row:first-child .col-sm-12 #' + tableStaff_id +
-        '_filter label');
-    searchBoxStaff.children().unwrap();
-    $('#' + tableStaff_id).addClass('mt-1');
-    $('#' + tableStaff_id + '_wrapper .row .dataTables_paginate .pagination').addClass('pull-right');
-
+    
     // Add Transaction
     $('#addTransaction_btn').click(function(e) {
         e.preventDefault;
         $('#add_tr_key_in').val(getCurrentDateTime());
-
         /*
         alert("Product ID: " + $('#add_prod_id').val());
         alert("Staff ID: " + $('#add_st_id').val());
@@ -449,7 +356,7 @@ $(document).ready(function() {
 
                 if (data.message == 'found') {
                     $('#edit_tr_id').val(data.tr_id);
-                    $('#disabled_edit_product').val(data.prod_name + " " + data.tr_id);
+                    $('#disabled_edit_product').val(data.prod_name);
                     $('#edit_prod_id').val(data.prod_id);
                     $('#disabled_edit_prod_price').val((data.prod_price * 1).toFixed(2));
                     $('#edit_tr_qty').val(data.tr_qty);
@@ -457,7 +364,7 @@ $(document).ready(function() {
                     $('#edit_tr_date').val((data.tr_date).replace(' ', 'T'));
                     $('#disabled_edit_st_id').val(data.st_username);
                     $('#edit_st_id').val(data.st_id);
-                    $('#edit_tr_key_in').val(getCurrentDateTime());
+                    $('#edit_tr_key_in').val((data.tr_key_in).replace(' ','T'));
                 } else {
                     Toast.fire({
                         icon: 'error',
@@ -465,14 +372,13 @@ $(document).ready(function() {
                     });
                 }
             }
-        })
+        });
         $('#editTransaction').modal('show');
     });
 
     // Edit Transaction
     $('#editTransaction_btn').click(function(e) {
         e.preventDefault;
-        $('#edit_tr_key_in').val(getCurrentDateTime());
 
         if ($('#edit_prod_id').val() && $('#edit_st_id').val() && $('#edit_tr_qty').val() && $('#edit_tr_date').val()) {
             var form_data = $('form#editTransaction_form').serialize();
@@ -488,7 +394,7 @@ $(document).ready(function() {
                         icon: 'success',
                         title: 'Transaction Edited Successfully!'
                     }).then((result) => {
-                        window.location.href = window.location.href.split("?")[0] //Remove All Parameter
+                        window.location.href = window.location.href.split("?")[0]; //Remove All Parameter
                     });
                 }
             })
