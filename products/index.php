@@ -281,6 +281,7 @@ include '../includes/footer.php';
                         console.log(response);
                         if(response.trim() == "success")
                         {
+                            $('#addProduct').modal('hide');
                             Toast.fire({
                                 icon: 'success',
                                 title: 'Product Has Been Added!'
@@ -327,6 +328,7 @@ include '../includes/footer.php';
                         console.log(response);
                         if(response.trim() == "success")
                         {
+                            $('#editProduct').modal('hide');
                             Toast.fire({
                                 icon: 'success',
                                 title: 'Product Has Been Updated!'

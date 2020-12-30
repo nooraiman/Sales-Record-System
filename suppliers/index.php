@@ -254,6 +254,7 @@ include '../includes/footer.php';
                     url: "suppliers.php",
                     data: form_data,
                     success: function(response) {
+                        $('#addSupplier').modal('hide');
                         Toast.fire({
                             icon: 'success',
                             title: 'Supplier Has Been Added!'
@@ -287,6 +288,7 @@ include '../includes/footer.php';
                     url: 'suppliers.php',
                     data: form_data,
                     success: function(response) {
+                        $('#editSupplier').modal('hide');
                         Toast.fire({
                             icon: 'success',
                             title: 'Supplier Has Been Updated!'
