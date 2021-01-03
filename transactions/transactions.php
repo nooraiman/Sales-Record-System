@@ -1,4 +1,10 @@
 <?php
+//SESSION CHECK
+session_start();
+if(!isset($_SESSION['id'])) {
+    die(http_response_code(403));
+}
+
 require '../includes/database.php';
 
 function insertTransaction($prod_id,$st_id,$tr_qty,$tr_date,$tr_key_in) 
@@ -26,7 +32,7 @@ function getTransaction($id)
 
     try
     {
-        $stmt = $conn->prepare("SELECT * FROM transaction t JOIN product p ON t.prod_id = p.prod_id JOIN staff s ON t.st_id = s.st_id WHERE tr_id = ?");
+        $stmt = $conn->prepare("SELECT t.tr_id,t.tr_qty,t.tr_date,t.tr_key_in,p.prod_id,p.prod_name,p.prod_price,s.st_username,s.st_id FROM transaction t JOIN product p ON t.prod_id = p.prod_id JOIN staff s ON t.st_id = s.st_id WHERE tr_id = ?");
         $stmt->execute([$id]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 

@@ -1,4 +1,10 @@
 <?php
+//SESSION CHECK
+session_start();
+if(!isset($_SESSION['id'])) {
+    die(http_response_code(403));
+}
+
 require '../includes/database.php';
 
 function insertSupplier($name,$phone,$email) 
