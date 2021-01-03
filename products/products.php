@@ -68,18 +68,21 @@ function editProduct($id,$name,$price,$supplier)
 function deleteProduct($id)
 {
     global $conn;
+    $result = "";
 
     try
     {
         $stmt = $conn->prepare("DELETE FROM product WHERE prod_id = ?");
         $stmt->execute([$id]);
-        
-        echo "<script>window.location.href='/products';</script>";
+        $result = "success";
     }
     catch(PDOException $e)
     {
         throw $e->getMessage();
+        $result = "failed";
     }
+
+    echo $result;
 }
 
 // Insert Product
@@ -108,8 +111,12 @@ else if(isset($_POST['editProduct']))
     editProduct($id,$name,$price,$supplier);
 }
 // Delete Product
-else if(isset($_GET['deleteProduct']))
+else if(isset($_POST['deleteProduct']))
 {
-    $id = $_GET['id'];
+    $id = $_POST['id'];
     deleteProduct($id);
+}
+else
+{
+    die("No Direct Access!");
 }

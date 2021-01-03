@@ -224,12 +224,25 @@ include '../includes/footer.php';
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                 if (result.value) {
-                    Toast.fire({
-                            icon: 'success',
-                            title: 'Supplier Has Been Deleted!'
-                        }).then((result) => {
-                            window.location.href = "suppliers.php?deleteSupplier&id=" + idSupplier;
-                        });
+                    $.ajax({
+                        type: "POST",
+                        async: false,
+                        cache: false,
+                        url: "suppliers.php",
+                        data: "deleteSupplier&id=" + idSupplier,
+                        success: function(response) {
+                            if(response.trim() == "success")
+                            {
+                                Toast.fire({
+                                        icon: 'success',
+                                        title: 'Supplier Has Been Deleted!'
+                                })
+                                .then((result) => {
+                                    window.location.href = window.location.href.split('?')[0];
+                                });
+                            }
+                        }
+                    })
                 }
             });
         });

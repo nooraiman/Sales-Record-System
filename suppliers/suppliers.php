@@ -70,16 +70,20 @@ function deleteSupplier($id)
 {
     global $conn;
     $result = "";
+
     try
     {
         $stmt = $conn->prepare("DELETE FROM supplier WHERE su_id = ?");
         $stmt->execute([$id]);
-        echo "<script>window.location.href='/suppliers';</script>";
+        $result = "success";
     }
     catch(PDOException $e)
     {
         throw $e->getMessage();
+        $result = "failed";
     }
+
+    echo $result;
 
 }
 
@@ -105,13 +109,12 @@ else if(isset($_POST['editSupplier']))
 
     editSupplier($id,$name,$phone,$email);
 }
-else if(isset($_GET['deleteSupplier']))
+else if(isset($_POST['deleteSupplier']))
 {
-    $id = $_GET['id'];
+    $id = $_POST['id'];
     deleteSupplier($id);
 }
 else
 {
     die("No Direct Access!");
 }
-?>

@@ -31,13 +31,13 @@ $page_title = "SRS | Login";
                     <span class="input-group-append">
                         <i class="fa fa-user"></i>
                     </span>
-                    <input type="text" class="form-control" name="input_userid" placeholder="User ID">
+                    <input type="text" class="form-control" name="input_userid" placeholder="User ID" autocomplete="off">
                 </div>
                 <div class="input-group">
                     <span class="input-group-append">
                         <i class="fa fa-lock"></i>
                     </span>
-                    <input type="password" class="form-control" name="input_userpassword" placeholder="Password">
+                    <input type="password" class="form-control" name="input_userpassword" placeholder="Password" autocomplete="off">
                 </div>
                 <input type="submit" class="btn btn-success submit-btn" name="btn_login" value="Login">
             </form>

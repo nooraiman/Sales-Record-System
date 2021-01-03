@@ -244,16 +244,29 @@ include '../includes/footer.php';
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                if (result.value) {
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Product Has Been Deleted!'
-                    }).then((result) => {
-                        window.location.href = "products.php?deleteProduct&id=" + idProduct;
-                    });
-                    
-                }
+                })
+                .then((result) => {
+                   if(result.value) {
+                       $.ajax({
+                           type: "POST",
+                           async: false,
+                           cache: false,
+                           url: "products.php",
+                           data: "deleteProduct&id="+idProduct,
+                           success: function(response) {
+                                if(response.trim() == "success")
+                                {
+                                    Toast.fire({
+                                        icon: 'success',
+                                        title: 'Product Has Been Deleted!'
+                                    })
+                                    .then((result) => {
+                                        window.location.href = window.location.href.split('?')[0];
+                                    });
+                                }
+                           }
+                       })
+                   }
             });
         })
 
@@ -323,7 +336,7 @@ include '../includes/footer.php';
                     url: "products.php",
                     data: form_data,
                     success: function(response) {
-                        console.log(response);
+
                         if(response.trim() == "success")
                         {
                             $('#editProduct').modal('hide');
