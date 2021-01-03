@@ -203,7 +203,7 @@ include '../includes/footer.php';
 ?>
 
     <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         <?php
         if($_SESSION['role'] == 'Admin')
         {
@@ -288,7 +288,6 @@ include '../includes/footer.php';
                     url: "products.php",
                     data: form_data,
                     success: function(response) {
-                        console.log(response);
                         if(response.trim() == "success")
                         {
                             $('#addProduct').modal('hide');

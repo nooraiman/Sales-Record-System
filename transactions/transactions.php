@@ -70,20 +70,21 @@ function deleteTransaction($id)
 {
     global $conn;
     $result = "";
+
     try
     {
         $stmt = $conn->prepare("DELETE FROM transaction WHERE tr_id = ?");
         $stmt->execute([$id]);
-        echo "<script>window.location.href='/transactions';</script>";
-
+        $result = "success";
     }
     catch(PDOException $e)
     {
         throw $e->getMessage();
-        echo "<script>window.location.href='/transactions';</script>";
+        $result = "failed";
 
     }
 
+    echo $result;
 }
 
 if(isset($_POST['insertTransaction'])) {
@@ -104,8 +105,8 @@ if(isset($_POST['insertTransaction'])) {
     $tr_key_in = $_POST['edit_tr_key_in'];
 
     editTransaction($tr_id,$tr_qty,$tr_date,$tr_key_in);  
-} else if(isset($_GET['deleteTransaction'])) {
-    $id = $_GET['id'];
+} else if(isset($_POST['deleteTransaction'])) {
+    $id = $_POST['id'];
     deleteTransaction($id);
 } else {
     die("No Direct Access!");
