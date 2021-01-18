@@ -38,8 +38,9 @@ include 'includes/header.php';
 
                             <!-- card-body -->
                             <div class="card-body">
-                                <p>SR System is to assist decisions making in determining the financial power, viablty and potential prospects of company.</p>
-                                <p>This system will help the user to record all sales of the business. This will help to create an effective record collections.</p>
+                                <ul><i class = "fa fa-angle-right" aria-hidden="true"></i> This system purpose is to help the staff or employees make their work faster and efficient by using the system where they can monitor the remaining products in the records where they can view in the database.</ul>
+                                <ul><i class = "fa fa-angle-right" aria-hidden="true"></i> The system will provide a good service to the company such as better and smoother transaction process that brings bigger profit.</ul>
+                                <ul><i class = "fa fa-angle-right" aria-hidden="true"></i> SR System can fix the problem in managing records for easier monitoring and tracking as well as help the workers to have an efficient and faster way of recording details for each transaction. </ul>
                             </div>
                             <!-- /.card-body -->
                         </div>
