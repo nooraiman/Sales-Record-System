@@ -55,9 +55,11 @@ function isAdmin()
                                         <th>Product Name</th>
                                         <th>Price Per Unit (RM)</th>
                                         <th>Quantity</th>
-                                        <th>Total Sales (RM)</th>
-                                        <th>Transaction Date</th>
                                         <th>Supplier</th>
+                                        <th>Supplier Email</th>
+                                        <th>Supplier Phone</th>
+                                        <th>Transaction Date</th>
+                                        <th>Total Sales (RM)</th>    
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,9 +84,11 @@ function isAdmin()
                                                 <td><?php echo $row['prod_name']; ?></td>
                                                 <td><span class="pull-right"><?php echo $cell_prod_price; ?></span></td>
                                                 <td><?php echo $row['tr_qty']; ?> unit(s)</td>
-                                                <td><span class="pull-right"><?php echo $cell_total_sales; ?></span></td>
-                                                <td><?php echo $row['tr_date']; ?></td>
                                                 <td><?php echo $row['su_name']; ?></td>
+                                                <td><?php echo $row['su_email']; ?></td>
+                                                <td><?php echo $row['su_phone']; ?></td>
+                                                <td><?php echo $row['tr_date']; ?></td>
+                                                <td><span class="pull-right"><?php echo $cell_total_sales; ?></span></td>
                                             </tr>
                                     <?php
                                         }
