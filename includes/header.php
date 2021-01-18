@@ -135,7 +135,8 @@ if(!isset($_SESSION['id'])) {
                             <p>Reports</p>
                         </a>
                     </li>
-
+                    
+                    <?php if($_SESSION['role'] == 'Admin') {?>
                     <li class="nav-header">Admins</li>
                     <li class="nav-item">
                         <a href="<?php echo BASE;?>staffs/" class="nav-link">
@@ -143,6 +144,7 @@ if(!isset($_SESSION['id'])) {
                             <p>Staff</p>
                         </a>
                     </li>
+                    <?php } ?>
                 </ul>
             </nav>
         </div>
