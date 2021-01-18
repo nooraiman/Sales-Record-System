@@ -83,7 +83,7 @@ if($_SESSION['role'] != 'Admin')
                                     }
                                     catch(PDOException $e)
                                     {
-                                        throw $e->getMessage();
+                                        throw $e;
                                     }
                                     ?>
                                     
@@ -226,18 +226,6 @@ if($_SESSION['role'] != 'Admin')
 include '../includes/footer.php';
 ?>
     <script>
-    // Toggle Password
-    function togglePassword() {
-        var x = $('#staffPassword');
-        if(x.attr('type', 'text')) {
-            alert('1');
-            x.attr('type','password');
-        }
-        else {alert('2');
-            x.attr('type','text');
-        }
-    };
-
     $(document).ready(function() {
         // Toggle Password
         $('.togglePass').click(function() {
@@ -258,12 +246,14 @@ include '../includes/footer.php';
             $.ajax({
                 url: "staffs.php",
                 method: "GET",
+                async: true,
+                cache: false,
                 data: "getStaff&id=" + idStaff,
                 success: function(data) {
                     data = $.parseJSON(data);
 
                     if(data.message == 'found') {
-                        console.log(data);
+
                         $('#EstaffID').val(data.st_id);
                         $('#EstaffUsername').val(data.st_username);
                         $('#EstaffName').val(data.st_name);
@@ -300,7 +290,7 @@ include '../includes/footer.php';
                 if (result.value) {
                     $.ajax({
                         type: "POST",
-                        async: false,
+                        async: true,
                         cache: false,
                         url: "staffs.php",
                         data: "deleteStaff&id=" + idSupplier,
@@ -312,7 +302,7 @@ include '../includes/footer.php';
                                         title: 'Staff Has Been Deleted!'
                                 })
                                 .then((result) => {
-                                    window.location.href = window.location.href.split('?')[0];
+                                    window.location.href = window.location.toString();
                                 });
                             }
                         }
@@ -330,7 +320,7 @@ include '../includes/footer.php';
                 var form_data = $('form#addStaff_form').serialize();
                 $.ajax({
                     type: "POST",
-                    async: false,
+                    async: true,
                     cache: false,
                     url: "staffs.php",
                     data: form_data,
@@ -342,8 +332,15 @@ include '../includes/footer.php';
                                 icon: 'success',
                                 title: 'Staff Has Been Added!'
                             }).then((result) => {
-                                window.location.href = window.location.href.split("?")[0]; //Remove All Parameter
+                                window.location.href = window.location.toString();
                             });
+                        }
+                        else if(response == "exist")
+                        {
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Staff Already Existed!'
+                            })
                         }
                         else
                         {

@@ -19,7 +19,6 @@ function insertSupplier($name,$phone,$email)
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
         $result = "failed";
     }
 
@@ -29,6 +28,7 @@ function insertSupplier($name,$phone,$email)
 function getSupplier($id)
 {
     global $conn;
+    $result = "";
 
     try
     {
@@ -39,24 +39,26 @@ function getSupplier($id)
         if($stmt->rowCount() == 1)
         {
             $result += array("message"=>"found");
-            echo json_encode($result);
+            $result = json_encode($result);
         }
         else
         {
-            echo json_encode(array("message"=>"not found"));
+            $result = json_encode(array("message"=>"not found"));
         }
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
+        $result = json_encode(array("message"=>"failed"));
     }
 
+    echo $result;
 }
 
 function editSupplier($id,$name,$phone,$email)
 {
     global $conn;
     $result = "";
+
     try
     {
         $stmt = $conn->prepare("UPDATE supplier SET su_name = ?, su_phone = ?, su_email = ? WHERE su_id = ?");
@@ -65,7 +67,6 @@ function editSupplier($id,$name,$phone,$email)
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
         $result = "failed";
     }
 
@@ -85,12 +86,10 @@ function deleteSupplier($id)
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
         $result = "failed";
     }
 
     echo $result;
-
 }
 
 if(isset($_POST['insertSupplier']))

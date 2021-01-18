@@ -11,6 +11,7 @@ function insertTransaction($prod_id,$st_id,$tr_qty,$tr_date,$tr_key_in)
 {
     global $conn;
     $result = "";
+
     try
     {
         $stmt = $conn->prepare("INSERT INTO transaction (prod_id,st_id,tr_qty,tr_date,tr_key_in) VALUES (?,?,?,?,?)");
@@ -19,7 +20,6 @@ function insertTransaction($prod_id,$st_id,$tr_qty,$tr_date,$tr_key_in)
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
         $result = "failed";
     }
 
@@ -29,6 +29,7 @@ function insertTransaction($prod_id,$st_id,$tr_qty,$tr_date,$tr_key_in)
 function getTransaction($id)
 {
     global $conn;
+    $result = "";
 
     try
     {
@@ -39,24 +40,26 @@ function getTransaction($id)
         if($stmt->rowCount() == 1)
         {
             $result += array("message"=>"found");
-            echo json_encode($result);
+            $result = json_encode($result);
         }
         else
         {
-            echo json_encode(array("message"=>"not found"));
+            $result = json_encode(array("message"=>"not found"));
         }
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
+        $result = json_encode(array("message"=>"failed"));
     }
 
+    echo $result;
 }
 
 function editTransaction($tr_id,$tr_qty,$tr_date,$tr_key_in)
 {
     global $conn;
     $result = "";
+
     try
     {
         $stmt = $conn->prepare("UPDATE transaction SET tr_qty = ?, tr_date = ?, tr_key_in = ? WHERE tr_id = ?");
@@ -65,7 +68,6 @@ function editTransaction($tr_id,$tr_qty,$tr_date,$tr_key_in)
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
         $result = "failed";
     }
 
@@ -85,7 +87,6 @@ function deleteTransaction($id)
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
         $result = "failed";
 
     }
@@ -101,21 +102,23 @@ if(isset($_POST['insertTransaction'])) {
     $tr_key_in = $_POST['add_tr_key_in'];
     
     insertTransaction($prod_id,$st_id,$tr_qty,$tr_date,$tr_key_in);
-} else if(isset($_GET['getTransaction'])) {
+} 
+else if(isset($_GET['getTransaction'])) {
     $id = $_GET['id'];
     getTransaction($id);
-} else if(isset($_POST['editTransaction'])) {
+} 
+else if(isset($_POST['editTransaction'])) {
     $tr_id = $_POST['edit_tr_id'];
     $tr_qty = $_POST['edit_tr_qty'];
     $tr_date = $_POST['edit_tr_date'];
     $tr_key_in = $_POST['edit_tr_key_in'];
 
     editTransaction($tr_id,$tr_qty,$tr_date,$tr_key_in);  
-} else if(isset($_POST['deleteTransaction'])) {
+} 
+else if(isset($_POST['deleteTransaction'])) {
     $id = $_POST['id'];
     deleteTransaction($id);
-} else {
+} 
+else {
     die("No Direct Access!");
 }
-
-?>

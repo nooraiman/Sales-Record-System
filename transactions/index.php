@@ -28,7 +28,7 @@ function fetchSelectProduct() {
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
+        throw $e;
     }
     return $options;
 }
@@ -128,7 +128,7 @@ function fetchSelectProduct() {
                                     }
                                     catch(PDOException $e)
                                     {
-                                        throw $e->getMessage();
+                                        throw $e;
                                     }
                                     ?>
 
@@ -307,6 +307,8 @@ include '../includes/footer.php';
             $.ajax({
                 url: "transactions.php",
                 method: "GET",
+                async: true,
+                cache: false,
                 data: "getTransaction&id=" + idTransaction,
                 success: function(data) {
                     data = $.parseJSON(data);
@@ -351,7 +353,7 @@ include '../includes/footer.php';
                    if(result.value) {
                        $.ajax({
                            type: "POST",
-                           async: false,
+                           async: true,
                            cache: false,
                            url: "transactions.php",
                            data: "deleteTransaction&id="+idTransaction,
@@ -363,7 +365,7 @@ include '../includes/footer.php';
                                         title: 'Transaction Has Been Deleted!'
                                     })
                                     .then((result) => {
-                                        window.location.href = window.location.href.split('?')[0];
+                                        window.location.href = window.location.toString();
                                     });
                                 }
                            }
@@ -383,7 +385,7 @@ include '../includes/footer.php';
                 var form_data = $('form#addTransaction_form').serialize();
                 $.ajax({
                 type: "POST",
-                async: false,
+                async: true,
                 cache: false,
                 url: "transactions.php",
                 data: form_data,
@@ -393,7 +395,7 @@ include '../includes/footer.php';
                         icon: 'success',
                         title: 'New Transaction Added!'
                     }).then((result) => {
-                        window.location.href = window.location.href.split("?")[0] //Remove All Parameter
+                        window.location.href = window.location.toString();
                     });
                     }
                 })
@@ -429,7 +431,7 @@ include '../includes/footer.php';
                 var form_data = $('form#editTransaction_form').serialize();
                 $.ajax({
                     type: "POST",
-                    async: false,
+                    async: true,
                     cache: false,
                     url: 'transactions.php',
                     data: form_data,
@@ -439,7 +441,7 @@ include '../includes/footer.php';
                             icon: 'success',
                             title: 'Transaction Edited Successfully!'
                         }).then((result) => {
-                            window.location.href = window.location.href.split("?")[0]; //Remove All Parameter
+                            window.location.href = window.location.toString();
                         });
                     }
                 })

@@ -23,9 +23,11 @@ function insertStaff($id, $username, $password, $name, $email, $role)
         // Check if user is exist
         $stmt = $conn->prepare("SELECT * FROM staff WHERE st_id = :id");
         $stmt->bindValue(":id", $id);
+        $stmt->execute();
         $check = $stmt->rowCount();
 
-        if($check < 1) {
+        if($check < 1) 
+        {
             $stmt = $conn->prepare("INSERT INTO staff (st_id, st_username, st_password, st_name, st_email) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$id,$username,$password,$name,$email]);
 
@@ -50,6 +52,7 @@ function insertStaff($id, $username, $password, $name, $email, $role)
 function getStaff($id)
 {
     global $conn;
+    $result = "";
 
     try
     {
@@ -61,17 +64,19 @@ function getStaff($id)
         if($stmt->rowCount() == 1)
         {
             $result += array("message"=>"found");
-            echo json_encode($result);
+            $result =  json_encode($result);
         }
         else
         {
-            echo json_encode(array("message"=>"not found"));
+            $result = json_encode(array("message"=>"not found"));
         }
     }
     catch(PDOException $e)
     {
-        echo json_encode(array("message"=>$e->getMessage()));
+        $result = json_encode(array("message"=>"failed"));
     }
+
+    echo $result;
 }
 
 function editStaff($id, $username, $password, $name, $email, $role)

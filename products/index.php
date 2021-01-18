@@ -82,7 +82,7 @@ include '../includes/header.php';
                                     }
                                     catch(PDOException $e)
                                     {
-                                        throw $e->getMessage();
+                                        throw $e;
                                     }
                                     ?>
                                     
@@ -215,6 +215,8 @@ include '../includes/footer.php';
             $.ajax({
                 url: "products.php",
                 method: "GET",
+                async: true,
+                cache: false,
                 data: "getProduct&id=" + idProduct,
                 success: function(data) {
                     data = $.parseJSON(data);
@@ -249,7 +251,7 @@ include '../includes/footer.php';
                    if(result.value) {
                        $.ajax({
                            type: "POST",
-                           async: false,
+                           async: true,
                            cache: false,
                            url: "products.php",
                            data: "deleteProduct&id="+idProduct,
@@ -261,7 +263,7 @@ include '../includes/footer.php';
                                         title: 'Product Has Been Deleted!'
                                     })
                                     .then((result) => {
-                                        window.location.href = window.location.href.split('?')[0];
+                                        window.location.href = window.location.toString();
                                     });
                                 }
                            }
@@ -283,7 +285,7 @@ include '../includes/footer.php';
 
                 $.ajax({
                     type: "POST",
-                    async: false,
+                    async: true,
                     cache: false,
                     url: "products.php",
                     data: form_data,
@@ -295,7 +297,7 @@ include '../includes/footer.php';
                                 icon: 'success',
                                 title: 'Product Has Been Added!'
                             }).then((result) => {
-                                window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                                window.location.href = window.location.toString();
                             });
                         }
                         else
@@ -330,7 +332,7 @@ include '../includes/footer.php';
 
                 $.ajax({
                     type: "POST",
-                    async: false,
+                    async: true,
                     cache: false,
                     url: "products.php",
                     data: form_data,
@@ -343,7 +345,7 @@ include '../includes/footer.php';
                                 icon: 'success',
                                 title: 'Product Has Been Updated!'
                             }).then((result) => {
-                                window.location.href =  window.location.href.split("?")[0]  //Remove All Parameter
+                                window.location.href = window.location.toString();
                             });
                         }
                         else

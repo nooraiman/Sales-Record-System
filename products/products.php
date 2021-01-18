@@ -20,7 +20,7 @@ function insertProduct($name,$price,$supplier)
     }
     catch(PDOException $e)
     {
-        $result = $e->getMessage();
+        $result = "failed";
     }
     echo $result;
 }
@@ -28,6 +28,7 @@ function insertProduct($name,$price,$supplier)
 function getProduct($id)
 {
     global $conn;
+    $result = "";
 
     try
     {
@@ -38,17 +39,19 @@ function getProduct($id)
         if($stmt->rowCount() == 1)
         {
             $result += array("message"=>"found");
-            echo json_encode($result);
+            $result = json_encode($result);
         }
         else
         {
-            echo json_encode(array("message"=>"not found"));
+            $result = json_encode(array("message"=>"not found"));
         }
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
+        $result = json_encode(array("message"=>"failed"));
     }
+
+    echo $result;
 }
 
 function editProduct($id,$name,$price,$supplier)
@@ -64,7 +67,6 @@ function editProduct($id,$name,$price,$supplier)
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
         $result = "failed";
     }
     
@@ -84,7 +86,6 @@ function deleteProduct($id)
     }
     catch(PDOException $e)
     {
-        throw $e->getMessage();
         $result = "failed";
     }
 

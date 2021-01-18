@@ -81,7 +81,7 @@ include '../includes/header.php';
                                     }
                                     catch(PDOException $e)
                                     {
-                                        throw $e->getMessage();
+                                        throw $e;
                                     }
                                     ?>
                                     
@@ -187,6 +187,8 @@ include '../includes/footer.php';
             $.ajax({
                 url: "suppliers.php",
                 method: "GET",
+                async: true,
+                cache: false,
                 data: "getSupplier&id=" + idSupplier,
                 success: function(data) {
                     data = $.parseJSON(data);
@@ -226,7 +228,7 @@ include '../includes/footer.php';
                 if (result.value) {
                     $.ajax({
                         type: "POST",
-                        async: false,
+                        async: true,
                         cache: false,
                         url: "suppliers.php",
                         data: "deleteSupplier&id=" + idSupplier,
@@ -238,7 +240,7 @@ include '../includes/footer.php';
                                         title: 'Supplier Has Been Deleted!'
                                 })
                                 .then((result) => {
-                                    window.location.href = window.location.href.split('?')[0];
+                                    window.location.href = window.location.toString();
                                 });
                             }
                         }
@@ -256,7 +258,7 @@ include '../includes/footer.php';
                 var form_data = $('form#addSupplier_form').serialize();
                 $.ajax({
                     type: "POST",
-                    async: false,
+                    async: true,
                     cache: false,
                     url: "suppliers.php",
                     data: form_data,
@@ -266,7 +268,7 @@ include '../includes/footer.php';
                             icon: 'success',
                             title: 'Supplier Has Been Added!'
                         }).then((result) => {
-                            window.location.href = window.location.href.split("?")[0]; //Remove All Parameter
+                            window.location.href = window.location.toString();
                         });
                     }
                 })
@@ -290,7 +292,7 @@ include '../includes/footer.php';
                 var form_data = $('form#editSupplier_form').serialize();
                 $.ajax({
                     type: "POST",
-                    async: false,
+                    async: true,
                     cache: false,
                     url: 'suppliers.php',
                     data: form_data,
@@ -300,7 +302,7 @@ include '../includes/footer.php';
                             icon: 'success',
                             title: 'Supplier Has Been Updated!'
                         }).then((result) => {
-                            window.location.href = window.location.href.split("?")[0]; //Remove All Parameter
+                            window.location.href = window.location.toString();
                         });
                     }
                 })
