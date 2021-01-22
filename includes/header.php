@@ -38,6 +38,8 @@ if(!isset($_SESSION['id'])) {
     <link rel="stylesheet" href="<?php echo BASE;?>assets/plugins/summernote/summernote-bs4.css">
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="<?php echo BASE;?>assets/plugins/sweetalert2/sweetalert2.min.css">
+    <!-- ChartJS -->
+    <link rel="stylesheet" href="<?php echo BASE;?>assets/plugins/chart.js/Chart.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <style>
@@ -68,6 +70,9 @@ if(!isset($_SESSION['id'])) {
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <span class="dropdown-item dropdown-header">SR System</span>
                         <div class="dropdown-divider"></div>
+                        <a href="<?php echo BASE;?>members.php" class="dropdown-item">
+                        Development Members
+                        <span class="float-right text-muted text-sm"><i class="fas fa-users"></i>
                         <a href="<?php echo BASE;?>logout.php" class="dropdown-item">
                         Logout
                         <span class="float-right text-muted text-sm"><i class="fas fa-sign-out-alt"></i>
@@ -132,7 +137,7 @@ if(!isset($_SESSION['id'])) {
                     <li class="nav-item">
                         <a href="<?php echo BASE;?>reports/" class="nav-link">
                             <i class="nav-icon far fa-fw fa-file"></i>
-                            <p>Reports</p>
+                            <p>Export Reports</p>
                         </a>
                     </li>
                     

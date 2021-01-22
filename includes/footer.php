@@ -36,6 +36,8 @@
 
         <!-- SweetAlert2 -->
         <script src="<?php echo BASE; ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+        <!-- ChartJS -->
+        <script src="<?php echo BASE; ?>assets/plugins/chart.js/Chart.min.js"></script>
         <!-- Select2 -->
         <script src="<?php echo BASE; ?>assets/plugins/select2/js/select2.full.min.js"></script>
         <!-- InputMask -->
