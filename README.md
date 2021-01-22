@@ -6,6 +6,8 @@ This system purpose is to help the staff or employees make their work faster and
 
 This system can fix the problem in managing records for easier monitoring and tracking as well as help the workers to have an efficient and faster way of recording details for each transaction.
 
+Live Demo: https://srs.nooraimanz.xyz  
+
 `Templates: AdminLTE 3.0`
 `Database: MariaDB 10.5.8`
 `Web Server: Apache 2.4.3`
