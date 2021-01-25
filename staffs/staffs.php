@@ -141,12 +141,12 @@ function deleteStaff($id)
 
 if(isset($_POST['insertStaff'])) 
 {
-    $id = $_POST['staffID'];
-    $username = $_POST['staffUsername'];
+    $id = strip_tags($_POST['staffID']);
+    $username = strip_tags($_POST['staffUsername']);
     $password = md5(md5(md5(strip_tags($_POST['staffPassword']))));
-    $name = $_POST['staffName'];
-    $email = $_POST['staffEmail'];
-    $role = $_POST['role'];
+    $name = strip_tags($_POST['staffName']);
+    $email = strip_tags($_POST['staffEmail']);
+    $role = strip_tags($_POST['role']);
 
     insertStaff($id, $username, $password, $name, $email, $role);
 }
@@ -157,11 +157,11 @@ else if(isset($_GET['getStaff']))
 }
 else if(isset($_POST['editStaff'])) 
 {
-    $id = $_POST['EstaffID'];
-    $username = $_POST['EstaffUsername'];
-    $name = $_POST['EstaffName'];
-    $email = $_POST['EstaffEmail'];
-    $role = $_POST['Erole'];
+    $id = strip_tags($_POST['EstaffID']);
+    $username = strip_tags($_POST['EstaffUsername']);
+    $name = strip_tags($_POST['EstaffName']);
+    $email = strip_tags($_POST['EstaffEmail']);
+    $role = strip_tags($_POST['Erole']);
 
     if(trim($_POST['EstaffPassword']) != '')
     {
@@ -176,7 +176,7 @@ else if(isset($_POST['editStaff']))
 }
 else if(isset($_POST['deleteStaff']))
 {
-    $id = $_POST['id'];
+    $id = strip_tags($_POST['id']);
     deleteStaff($id);
 }
 else

@@ -95,28 +95,28 @@ function deleteTransaction($id)
 }
 
 if(isset($_POST['insertTransaction'])) {
-    $prod_id = $_POST['add_prod_id'];
-    $st_id = $_POST['add_st_id'];
-    $tr_qty = $_POST['add_tr_qty'];
-    $tr_date = $_POST['add_tr_date'];
-    $tr_key_in = $_POST['add_tr_key_in'];
+    $prod_id = strip_tags($_POST['add_prod_id']);
+    $st_id = strip_tags($_POST['add_st_id']);
+    $tr_qty = strip_tags($_POST['add_tr_qty']);
+    $tr_date = strip_tags($_POST['add_tr_date']);
+    $tr_key_in = strip_tags($_POST['add_tr_key_in']);
     
     insertTransaction($prod_id,$st_id,$tr_qty,$tr_date,$tr_key_in);
 } 
 else if(isset($_GET['getTransaction'])) {
-    $id = $_GET['id'];
+    $id = strip_tags($_GET['id']);
     getTransaction($id);
 } 
 else if(isset($_POST['editTransaction'])) {
-    $tr_id = $_POST['edit_tr_id'];
-    $tr_qty = $_POST['edit_tr_qty'];
-    $tr_date = $_POST['edit_tr_date'];
-    $tr_key_in = $_POST['edit_tr_key_in'];
+    $tr_id = strip_tags($_POST['edit_tr_id']);
+    $tr_qty = strip_tags($_POST['edit_tr_qty']);
+    $tr_date = strip_tags($_POST['edit_tr_date']);
+    $tr_key_in = strip_tags($_POST['edit_tr_key_in']);
 
     editTransaction($tr_id,$tr_qty,$tr_date,$tr_key_in);  
 } 
 else if(isset($_POST['deleteTransaction'])) {
-    $id = $_POST['id'];
+    $id = strip_tags($_POST['id']);
     deleteTransaction($id);
 } 
 else {

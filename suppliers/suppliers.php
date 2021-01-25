@@ -94,29 +94,29 @@ function deleteSupplier($id)
 
 if(isset($_POST['insertSupplier']))
 {
-    $name = $_POST['supplierName'];
-    $phone = $_POST['supplierPhone'];
-    $email = $_POST['supplierEmail'];
+    $name = strip_tags($_POST['supplierName']);
+    $phone = strip_tags($_POST['supplierPhone']);
+    $email = strip_tags($_POST['supplierEmail']);
 
     insertSupplier($name,$phone,$email);
 }
 else if(isset($_GET['getSupplier']))
 {
-    $id = $_GET['id'];
+    $id = strip_tags($_GET['id']);
     getSupplier($id);
 }
 else if(isset($_POST['editSupplier']))
 {
-    $id = $_POST['EsupplierID'];
-    $name = $_POST['EsupplierName'];
-    $phone = $_POST['EsupplierPhone'];
-    $email = $_POST['EsupplierEmail'];
+    $id = strip_tags($_POST['EsupplierID']);
+    $name = strip_tags($_POST['EsupplierName']);
+    $phone = strip_tags($_POST['EsupplierPhone']);
+    $email = strip_tags($_POST['EsupplierEmail']);
 
     editSupplier($id,$name,$phone,$email);
 }
 else if(isset($_POST['deleteSupplier']))
 {
-    $id = $_POST['id'];
+    $id = strip_tags($_POST['id']);
     deleteSupplier($id);
 }
 else

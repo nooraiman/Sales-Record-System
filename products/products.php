@@ -95,9 +95,9 @@ function deleteProduct($id)
 // Insert Product
 if(isset($_POST['insertProduct']))
 {
-    $name = $_POST['productName'];
-    $price = $_POST['productPrice'];
-    $supplier = $_POST['supplier'];
+    $name = strip_tags($_POST['productName']);
+    $price = strip_tags($_POST['productPrice']);
+    $supplier = strip_tags($_POST['supplier']);
 
     insertProduct($name,$price,$supplier);
 }
@@ -110,17 +110,17 @@ else if(isset($_GET['getProduct']))
 // Edit Product
 else if(isset($_POST['editProduct']))
 {
-    $id = $_POST['EproductID'];
-    $name = $_POST['EproductName'];
-    $price = $_POST['EproductPrice'];
-    $supplier = $_POST['Esupplier'];
+    $id = strip_tags($_POST['EproductID']);
+    $name = strip_tags($_POST['EproductName']);
+    $price = strip_tags($_POST['EproductPrice']);
+    $supplier = strip_tags($_POST['Esupplier']);
 
     editProduct($id,$name,$price,$supplier);
 }
 // Delete Product
 else if(isset($_POST['deleteProduct']))
 {
-    $id = $_POST['id'];
+    $id = strip_tags($_POST['id']);
     deleteProduct($id);
 }
 else
