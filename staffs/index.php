@@ -123,7 +123,7 @@ if($_SESSION['role'] != 'Admin')
                         <div class="form-group">
                             <label for="staffPassword">Staff Password:</label>
                             <div class="input-group">
-                            <input type="password" id="staffPassword" name="staffPassword" class="form-control" autocomplete="off" required>
+                            <input type="password" id="staffPassword" name="staffPassword" class="form-control staffPassword" autocomplete="off" required>
                                 <span class="input-group-append">
                                     <button type="button" class="togglePass btn btn-info btn-sm">Show</button>
                                 </span>
@@ -185,7 +185,7 @@ if($_SESSION['role'] != 'Admin')
                         <div class="form-group">
                             <label for="EstaffPassword">Staff Password:</label>
                             <div class="input-group">
-                            <input type="password" id="EstaffPassword" name="EstaffPassword" class="form-control" autocomplete="off">
+                            <input type="password" id="EstaffPassword" name="EstaffPassword" class="form-control staffPassword" autocomplete="off">
                                 <span class="input-group-append">
                                     <button type="button" class="togglePass btn btn-info btn-sm">Show</button>
                                 </span>
@@ -229,7 +229,7 @@ include '../includes/footer.php';
     $(document).ready(function() {
         // Toggle Password
         $('.togglePass').click(function() {
-            var x = $('#staffPassword');
+            var x = $('.staffPassword');
 
             if(x.attr('type') == 'password') {
                 x.attr('type','text');
@@ -238,6 +238,11 @@ include '../includes/footer.php';
                 x.attr('type','password');
             }
         })
+
+        // Reset Form When Modal is Closed
+        $('.modal').on('hidden.bs.modal', function(){
+            $(this).find('form')[0].reset();
+        });
 
         // Edit Button
         $('.edit').click(function() {
@@ -362,7 +367,7 @@ include '../includes/footer.php';
             }
         });
 
-        // Submit Form - Edit Supplier
+        // Submit Form - Edit Staff
         $('#editStaff_btn').click(function(e){
             e.preventDefault;
 
